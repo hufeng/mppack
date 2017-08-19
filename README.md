@@ -29,6 +29,7 @@ how ?
 
 通过分析app.json 可以得到page的信息
 
+```text
 --quick-start
   -- app.js
   -- app.wxml
@@ -37,7 +38,7 @@ how ?
     -- page-a
     -- page-b
     -- page-c
-
+```
 
 wxml, wcss文件不做处理，只做一个拷贝
 
