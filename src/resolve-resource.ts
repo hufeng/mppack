@@ -13,6 +13,10 @@ export default function syncResource(dest: string) {
     .src([
       //扫描小程序的资源文件wxml, wcss, json
       `**/*.*(json|wxml|wxss)`,
+      //排除
+      '!package.json',
+      //排除
+      '!tsconfig.json',
       //排除目标目录
       `!${dest}/**`,
       //排除node_modules
