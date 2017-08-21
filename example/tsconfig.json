@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "module": "commonjs",
-    "outDir": "./build",
+    "module": "es2015",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "experimentalDecorators": true
-  },
-  "exclude": ["node_modules", "example", "__tests__"],
-  "include": ["src/*.ts"]
+  }
 }
