@@ -9,9 +9,9 @@ import { traceFileLog, babelTransform } from './plugin';
 export default function resolveJS(dest: string) {
   gulp
     .src([
-      //扫描所有的ts和js
-      '**/*.*(ts|js)',
-      //排除dest目录下面的j
+      //扫描所有的js
+      '**/*.js',
+      //排除dest目录下面的js
       `!${dest}/**`,
       //排除node_modules下面的js
       '!node_modules/**'
