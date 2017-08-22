@@ -2,11 +2,12 @@ import * as through2 from 'through2';
 
 export default function traceFileLog(dest: string) {
   return through2.obj((file, encoding, callback) => {
-    let relative = file.relative as string;
+    const relative = file.relative as string;
+    let destFile = relative;
     if (relative.endsWith('.ts')) {
-      relative = relative.replace('.ts', '.js');
+      destFile = relative.replace('.ts', '.js');
     }
-    console.log(`🙂 正在解析:> ${relative} => ${dest}/${relative}`);
+    console.log(`🙂 正在解析:> ${relative} => ${dest}/${destFile}`);
 
     callback(null, file);
   });
