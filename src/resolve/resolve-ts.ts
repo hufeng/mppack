@@ -1,6 +1,6 @@
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
-import { traceFileLog, babelTransform } from './plugin';
+import { traceFileLog, babelTransform } from '../plugin';
 
 const tsProject = ts.createProject('tsconfig.json');
 
@@ -9,6 +9,7 @@ export default function resolveTs(dest: string) {
     .src([
       //扫描所有的typescript文件
       '**/*.ts',
+      '!vendor/**',
       //排除dest目录下的文件
       `!${dest}/**`,
       //排除node_modules下面的文件

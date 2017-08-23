@@ -3,10 +3,12 @@
     "target": "es2015",
     "module": "commonjs",
     "outDir": "./build",
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "experimentalDecorators": true
   },
-  "exclude": ["node_modules", "example", "__tests__"],
-  "include": ["src/*.ts"]
+  "exclude": ["node_modules", "example", "src/__tests__/**"],
+  "include": ["src/**/*.ts"]
 }

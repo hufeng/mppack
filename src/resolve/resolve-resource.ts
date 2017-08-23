@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import { traceFileLog } from './plugin';
+import { traceFileLog } from '../plugin';
 
 /**
  * sync json, wxml, wcss

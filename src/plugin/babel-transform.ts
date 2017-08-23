@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as through2 from 'through2';
 import * as babel from 'babel-core';
+import resolveNodeModule from './babel-plugin-resolve-node-module';
 
 /**
  * 判断当前的文件是不是js文件
@@ -16,8 +17,13 @@ const isJSFile = path => {
  */
 const babelrc = () => {
   const babelrcPath = path.join(process.cwd(), '.babelrc');
-  const babelrcContent = fs.readFileSync(babelrcPath).toString() || '{}';
-  return JSON.parse(babelrcContent);
+  const babelrc = fs.readFileSync(babelrcPath).toString() || '{}';
+  const babelrcJSON = JSON.parse(babelrc);
+
+  babelrcJSON.plugins = babelrcJSON.plugins || [];
+  babelrcJSON.plugins.push([resolveNodeModule]);
+
+  return babelrcJSON;
 };
 
 /**
@@ -27,7 +33,7 @@ export default function babelTransform(type: 'module' | 'file' = 'file') {
   const opts = babelrc();
 
   return through2.obj((file, encoding, callback) => {
-    //如果不是js文件，即可返回
+    //如果不是js文件，返回
     if (!isJSFile(file.path)) {
       callback(null, file);
       return;
@@ -43,9 +49,12 @@ export default function babelTransform(type: 'module' | 'file' = 'file') {
         file.contents = new Buffer(result.code, 'utf8');
         callback(null, file);
       });
-    }
-    //文件内容babel转换
-    else if (type === 'module') {
+    } else if (type === 'module') {
+      //设置文件名
+      opts.filename = file.relative;
+      opts.filenameRelative = file.relative;
+
+      //文件内容babel转换
       const code = babel.transform(file.contents, opts).code;
       file.contents = new Buffer(code);
       callback(null, file);
