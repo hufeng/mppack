@@ -1,5 +1,3 @@
-// import { fromJS } from 'immutable';
-
-// fromJS({});
+import { fromJS } from 'immutable';
 
 export default class User {}
