@@ -6,6 +6,7 @@ export default function transformFile(
   opts: Object
 ): Promise<{ code: string; err: Error }> {
   return new Promise(resolve => {
+    console.log('🙂 正在转换: ' + file);
     babel.transformFile(file, opts, (err, result) => {
       resolve({
         err,

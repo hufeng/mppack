@@ -37,16 +37,6 @@ function resolveModuleDependencies(babel) {
 
   return {
     visitor: {
-      ImportDeclaration(path, opts) {
-        const { node } = path;
-        const { value } = node.source;
-        const { file: { opts: { filename } } } = opts;
-        //解析模块
-        const modulePath = resolveNodeModule(value, filename);
-        // 如果是绝对路径改变为相对路径;
-        node.source.value = modulePath;
-      },
-
       CallExpression(path, opts) {
         if (!isRequire(path)) {
           return;
@@ -55,12 +45,6 @@ function resolveModuleDependencies(babel) {
         const { node } = path;
         //value is module name
         const value: string = node.arguments[0].value;
-
-        //如果已经被import处理,路径中包含vendor
-        const isResolvedByImportDeclaration = value.includes('vendor');
-        if (isResolvedByImportDeclaration) {
-          return;
-        }
 
         //分析出来模块的文件路径是相对路径
         const { file: { opts: { filename } } } = opts;
@@ -77,7 +61,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     throw new Error(`${moduleName} had not filename`);
   }
 
-  console.log(`🙂 正在解析:> node_modules/${moduleName}, 被${filename}引用`);
+  console.log(`🙂 正在解析:> ${moduleName}, 被${filename}引用`);
 
   //当前文件所在的目录
   const dir = dirname(filename);
@@ -97,7 +81,31 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     modulePath = resolveRelativeModule(join(dir, moduleName));
   }
 
-  console.log(`🙂 模块:> node_module/${moduleName} 解析完整的路径: ${modulePath}`);
+  console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${modulePath}`);
+
+  (async () => {
+    const { code, err } = await babelTransfomeFile(modulePath, {
+      plugins: [resolveModuleDependencies]
+    });
+
+    if (err) {
+      throw err;
+    }
+
+    // console.log(code);
+
+    const dest =
+      rootDir + `/${cfg.dest}/` + modulePath.replace('node_modules', 'vendor');
+
+    //trace
+    console.log(
+      '🙂 vendor:|>',
+      modulePath,
+      modulePath.replace('node_modules', 'vendor')
+    );
+
+    writeFile(dest, code);
+  })();
 
   return modulePath.replace(
     'node_modules',
@@ -126,32 +134,6 @@ export const resolveNodeModuleMainEntry = (moduleName: string) => {
   }
 
   const mainFile = join(nodeModulePath, main);
-
-  const modulePath = mainFile;
-
-  (async () => {
-    const { code, err } = await babelTransfomeFile(modulePath, {
-      plugins: [resolveModuleDependencies]
-    });
-
-    if (err) {
-      throw err;
-    }
-
-    // console.log(code);
-
-    const dest =
-      rootDir + `/${cfg.dest}/` + modulePath.replace('node_modules', 'vendor');
-
-    //trace
-    console.log(
-      '🙂 vendor:|>',
-      modulePath,
-      modulePath.replace('node_modules', 'vendor')
-    );
-
-    writeFile(dest, code);
-  })();
   return mainFile;
 };
 

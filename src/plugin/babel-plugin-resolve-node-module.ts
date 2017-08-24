@@ -26,22 +26,6 @@ export default function resolveNodeModule(babel) {
 
   return {
     visitor: {
-      ImportDeclaration(path, opts) {
-        const { node } = path;
-        //module name
-        const { value } = node.source;
-
-        //如果是绝对路径
-        if (isAbsoluteModule(value)) {
-          //分析出来模块的文件路径是相对路径
-          const { file: { opts: { filename } } } = opts;
-          //计算模块的完整的路径名
-          const modulePath = resolveModule.resolveNodeModule(value, filename);
-          //相对路径的替换
-          node.source.value = modulePath;
-        }
-      },
-
       CallExpression(path, opts) {
         //如果不是reuqire callexpression提前退出
         if (!isRequire(path)) {
@@ -51,12 +35,6 @@ export default function resolveNodeModule(babel) {
         const { node } = path;
         //module name
         const value = node.arguments[0].value;
-
-        //如果已经被import处理,路径中包含vendor
-        const isResolvedByImportDeclaration = value.includes('vendor');
-        if (isResolvedByImportDeclaration) {
-          return;
-        }
 
         if (isAbsoluteModule(value)) {
           //分析出来模块的文件路径是相对路径
