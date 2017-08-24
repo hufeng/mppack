@@ -1,9 +1,14 @@
 //index.js
 //获取应用实例
 import foo from 'fofo';
+import { fromJS } from 'immutable';
 var app = getApp();
 var test = require('./test');
 console.log(test);
+
+// fromJS({
+//   hello: 'hello'
+// });
 
 class User {
   static defaultProps = {

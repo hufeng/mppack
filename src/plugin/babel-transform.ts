@@ -19,10 +19,8 @@ const babelrc = () => {
   const babelrcPath = path.join(process.cwd(), '.babelrc');
   const babelrc = fs.readFileSync(babelrcPath).toString() || '{}';
   const babelrcJSON = JSON.parse(babelrc);
-
   babelrcJSON.plugins = babelrcJSON.plugins || [];
   babelrcJSON.plugins.push([resolveNodeModule]);
-
   return babelrcJSON;
 };
 

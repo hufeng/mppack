@@ -2,5 +2,9 @@
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.0"
+  },
+  "dependencies": {
+    "fofo": "file:fofo",
+    "immutable": "^3.8.1"
   }
 }

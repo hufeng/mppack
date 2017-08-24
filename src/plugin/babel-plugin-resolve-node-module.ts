@@ -52,10 +52,15 @@ export default function resolveNodeModule(babel) {
         //module name
         const value = node.arguments[0].value;
 
+        //如果已经被import处理,路径中包含vendor
+        const isResolvedByImportDeclaration = value.includes('vendor');
+        if (isResolvedByImportDeclaration) {
+          return;
+        }
+
         if (isAbsoluteModule(value)) {
           //分析出来模块的文件路径是相对路径
           const { file: { opts: { filename } } } = opts;
-
           //计算模块的完整的路径名
           const modulePath = resolveModule.resolveNodeModule(value, filename);
           //相对路径的替换

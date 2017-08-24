@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { relative, dirname, resolve, join } from 'path';
 import { isDir, fsExist, writeFile, babelTransfomeFile } from '../promisify';
+import cfg from '../config';
 
 //项目的根目录
 const rootDir = process.cwd();
@@ -11,8 +12,8 @@ const rootDir = process.cwd();
  * 
  * @param opts babel opts
  */
-function moduleRelativeVendorPath(dirname) {
-  return relative(dirname, 'vendor');
+function moduleRelativeVendorPath(modulePath: string) {
+  return relative(dirname(modulePath), 'vendor');
 }
 
 /**
@@ -40,14 +41,10 @@ function resolveModuleDependencies(babel) {
         const { node } = path;
         const { value } = node.source;
         const { file: { opts: { filename } } } = opts;
-
         //解析模块
         const modulePath = resolveNodeModule(value, filename);
-
-        //如果是绝对路径改变为相对路径
-        if (isAbsoluteModule(value)) {
-          node.source.value = modulePath;
-        }
+        // 如果是绝对路径改变为相对路径;
+        node.source.value = modulePath;
       },
 
       CallExpression(path, opts) {
@@ -57,17 +54,19 @@ function resolveModuleDependencies(babel) {
 
         const { node } = path;
         //value is module name
-        const value = node.arguments[0].value;
+        const value: string = node.arguments[0].value;
+
+        //如果已经被import处理,路径中包含vendor
+        const isResolvedByImportDeclaration = value.includes('vendor');
+        if (isResolvedByImportDeclaration) {
+          return;
+        }
 
         //分析出来模块的文件路径是相对路径
         const { file: { opts: { filename } } } = opts;
-
         //解析模块
         const modulePath = resolveNodeModule(value, filename);
-
-        if (isAbsoluteModule(value)) {
-          node.arguments[0].value = modulePath;
-        }
+        node.arguments[0].value = modulePath;
       }
     }
   };
@@ -78,7 +77,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     throw new Error(`${moduleName} had not filename`);
   }
 
-  console.log(`🙂 正在解析node_modules模块：${moduleName}, 被${filename}引用`);
+  console.log(`🙂 正在解析:> node_modules/${moduleName}, 被${filename}引用`);
 
   //当前文件所在的目录
   const dir = dirname(filename);
@@ -98,30 +97,12 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     modulePath = resolveRelativeModule(join(dir, moduleName));
   }
 
-  console.log(`🙂 node_module模块：${moduleName} 解析完整的路径: ${modulePath}`);
+  console.log(`🙂 模块:> node_module/${moduleName} 解析完整的路径: ${modulePath}`);
 
-  setImmediate(async () => {
-    const { code, err } = await babelTransfomeFile(modulePath, {
-      plugins: [resolveModuleDependencies]
-    });
-
-    if (err) {
-      throw err;
-    }
-
-    const dest = rootDir + '/' + modulePath.replace('node_modules', 'vendor');
-
-    //trace
-    console.log(
-      'vendor:|>',
-      modulePath,
-      modulePath.replace('node_modules', 'vendor')
-    );
-
-    writeFile(dest, code);
-  });
-
-  return modulePath.replace('node_modules', moduleRelativeVendorPath(dir));
+  return modulePath.replace(
+    'node_modules',
+    moduleRelativeVendorPath(modulePath)
+  );
 };
 
 /**
@@ -145,6 +126,32 @@ export const resolveNodeModuleMainEntry = (moduleName: string) => {
   }
 
   const mainFile = join(nodeModulePath, main);
+
+  const modulePath = mainFile;
+
+  (async () => {
+    const { code, err } = await babelTransfomeFile(modulePath, {
+      plugins: [resolveModuleDependencies]
+    });
+
+    if (err) {
+      throw err;
+    }
+
+    // console.log(code);
+
+    const dest =
+      rootDir + `/${cfg.dest}/` + modulePath.replace('node_modules', 'vendor');
+
+    //trace
+    console.log(
+      '🙂 vendor:|>',
+      modulePath,
+      modulePath.replace('node_modules', 'vendor')
+    );
+
+    writeFile(dest, code);
+  })();
   return mainFile;
 };
 
@@ -185,15 +192,15 @@ export const resolveRelativeModule = (modulePath: string) => {
     }
   }
 
-  modulePath = modulePath + '.js';
-  const exist = fs.existsSync(modulePath);
+  //判断是不是js文件，优先匹配文件， 在匹配目录下的index.js
+  const exist = fs.existsSync(modulePath + '.js');
   if (!exist) {
-    modulePath = join(modulePath, 'index.js');
-    const exist = fs.existsSync(modulePath);
+    modulePath = join(modulePath, 'index');
+    const exist = fs.existsSync(modulePath + '.js');
     if (!exist) {
       throw new Error(`Could not find ${modulePath}`);
     }
   }
 
-  return modulePath;
+  return modulePath + '.js';
 };

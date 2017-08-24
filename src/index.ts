@@ -4,21 +4,28 @@ import * as program from 'commander';
 import resolveResource from './resolve/resolve-resource';
 import resolveJS from './resolve/resolve-js';
 import resolveTs from './resolve/resolve-ts';
-import resolveModule from './resolve/resolve-module';
+import cfg from './config';
 
 const version = require('../package.json').version;
 
 program
   .version(version)
   .usage('[-o path]')
+  .option('-c, --clean', 'clean output')
   .option('-o, --output [path]', 'Which bundle output')
   .option('-v, --verbose', 'show verbose log')
   .parse(process.argv);
 
 //main
 (function main() {
-  console.log(`🚀 🚀 wxpacker: ${version} 开始构建 `);
+  //如果当前是清理
+  if (program.clean) {
+    console.log(`🚀 🚀 wxpacker: ${version} 开始清理 `);
+    //删除目录
+    return;
+  }
 
+  console.log(`🚀 🚀 wxpacker: ${version} 开始构建 `);
   //检查当前是不是小程序根目录
   const isWxProject = fs.existsSync('app.json');
   if (!isWxProject) {
@@ -32,6 +39,8 @@ program
     console.warn('😓 么有指定output目录，默认-> build');
     dest = 'build';
   }
+
+  cfg.setDest(dest);
 
   //解析资源文件
   // resolveResource(dest);

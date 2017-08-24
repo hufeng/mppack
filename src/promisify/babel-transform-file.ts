@@ -1,4 +1,5 @@
 import * as babel from 'babel-core';
+import * as fs from 'fs';
 
 export default function transformFile(
   file: string,
