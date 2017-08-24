@@ -1,5 +1,5 @@
 # wxpacker
-微信小程序的webpacker
+微信小程序的webpack
 
 
 构建一个好用的小程序的打包工具，小程序界的webpack
