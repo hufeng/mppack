@@ -6,7 +6,7 @@ import opt from '../option';
  * 解析js文件，进行babel-transform
  */
 export default function resolveJS() {
-  const {output} = opt;
+  const { output } = opt;
 
   gulp
     .src([

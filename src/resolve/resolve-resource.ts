@@ -18,7 +18,7 @@ export default function syncResource() {
       `**/*.*(json|wxml|wxss)`,
       //排除
       '!package.json',
-      '！package-lock.json',
+      '!package-lock.json',
       //排除
       '!tsconfig.json',
       //排除目标目录

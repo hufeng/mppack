@@ -124,7 +124,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
       nodeModulePath.replace('node_modules', 'vendor')
     );
 
-    // writeFile(dest, code);
+    writeFile(dest, code);
   })();
 
   //删除.js 减少js的体积
