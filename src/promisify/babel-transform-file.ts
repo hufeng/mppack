@@ -10,7 +10,7 @@ export default function transformFile(
     babel.transformFile(file, opts, (err, result) => {
       resolve({
         err,
-        code: result.code
+        code: err ? '' : result.code
       });
     });
   });

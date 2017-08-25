@@ -6,6 +6,8 @@ import cfg from '../config';
 //项目的根目录
 const rootDir = process.cwd();
 
+const cacheModulePath = [];
+
 /**
  * 计算当前的文件相对于vendor的相对路径， 默认wxpacker会把node_module依赖
  * 放进{rootDir}/vendor
@@ -63,10 +65,10 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
 
   console.log(`🙂 正在解析:> ${moduleName}, 被${filename}引用`);
 
-  //当前文件所在的目录
-  const dir = dirname(filename);
   //模块完整的路径
-  let modulePath = '';
+  let nodeModulePath = '';
+  //替换module的path，绝对路径相对于vendor,相对路径相对于当前的目录
+  let transformAstRequirePath = '';
 
   if (isAbsoluteModule(moduleName)) {
     //判断moduleName是不是包含子模块
@@ -74,43 +76,59 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     const isContainSlash = moduleName.includes('/');
 
     //解析出当前的模块路径
-    modulePath = isContainSlash
+    nodeModulePath = isContainSlash
       ? resolveNodeModuleSubModule(moduleName)
       : resolveNodeModuleMainEntry(moduleName);
+    transformAstRequirePath = nodeModulePath.replace(
+      'node_modules',
+      moduleRelativeVendorPath(filename)
+    );
   } else {
-    modulePath = resolveRelativeModule(join(dir, moduleName));
+    nodeModulePath = resolveRelativeModule(join(dirname(filename), moduleName));
+    //计算相对路径的ast替换的路径
+    transformAstRequirePath = relative(dirname(filename), nodeModulePath);
+    //如果是当前的目录，补充./
+    if (!transformAstRequirePath.startsWith('.')) {
+      transformAstRequirePath = './' + transformAstRequirePath;
+    }
   }
 
-  console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${modulePath}`);
+  console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${nodeModulePath}`);
 
   (async () => {
-    const { code, err } = await babelTransfomeFile(modulePath, {
+    //如果已经转换过，直接返回
+    if (cacheModulePath.indexOf(nodeModulePath) != -1) {
+      return;
+    }
+
+    const { code, err } = await babelTransfomeFile(nodeModulePath, {
       plugins: [resolveModuleDependencies]
     });
+
+    //记录已经transform的模块
+    cacheModulePath.push(nodeModulePath);
 
     if (err) {
       throw err;
     }
 
-    // console.log(code);
-
     const dest =
-      rootDir + `/${cfg.dest}/` + modulePath.replace('node_modules', 'vendor');
+      rootDir +
+      `/${cfg.dest}/` +
+      nodeModulePath.replace('node_modules', 'vendor');
 
     //trace
     console.log(
       '🙂 vendor:|>',
-      modulePath,
-      modulePath.replace('node_modules', 'vendor')
+      nodeModulePath,
+      nodeModulePath.replace('node_modules', 'vendor')
     );
 
     writeFile(dest, code);
   })();
 
-  return modulePath.replace(
-    'node_modules',
-    moduleRelativeVendorPath(modulePath)
-  );
+  //删除.js 减少js的体积
+  return transformAstRequirePath.slice(0, -3);
 };
 
 /**

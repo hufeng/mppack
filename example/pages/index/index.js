@@ -2,6 +2,7 @@
 //获取应用实例
 import foo from 'fofo';
 import { fromJS } from 'immutable';
+import * as plume2 from 'plume2';
 var app = getApp();
 var test = require('./test');
 console.log(test);
