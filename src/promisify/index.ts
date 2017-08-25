@@ -1,4 +1,4 @@
-import { writeFile, fsExist, isDir } from './fs';
-import babelTransfomeFile from './babel-transform-file';
+import { writeFile, isFileExist, isDir } from './fs';
+import babelTransformFile from './babel-transform-file';
 
-export { isDir, fsExist, writeFile, babelTransfomeFile };
+export { isDir, isFileExist, writeFile, babelTransformFile };

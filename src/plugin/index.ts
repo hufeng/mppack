@@ -1,4 +1,4 @@
-import traceFileLog from './trace-file-log';
+import log from './log';
 import babelTransform from './babel-transform';
 
-export { traceFileLog, babelTransform };
+export { log, babelTransform };

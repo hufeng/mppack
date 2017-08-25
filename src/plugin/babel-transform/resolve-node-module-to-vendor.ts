@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { relative, dirname, resolve, join } from 'path';
-import { isDir, fsExist, writeFile, babelTransfomeFile } from '../promisify';
-import cfg from '../config';
+import { writeFile, babelTransformFile } from '../../promisify';
+import cfg from '../../option';
 
 //项目的根目录
 const rootDir = process.cwd();
@@ -101,7 +101,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
       return;
     }
 
-    const { code, err } = await babelTransfomeFile(nodeModulePath, {
+    const { code, err } = await babelTransformFile(nodeModulePath, {
       plugins: [resolveModuleDependencies]
     });
 
@@ -114,7 +114,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
 
     const dest =
       rootDir +
-      `/${cfg.dest}/` +
+      `/${cfg.output}/` +
       nodeModulePath.replace('node_modules', 'vendor');
 
     //trace
@@ -124,7 +124,7 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
       nodeModulePath.replace('node_modules', 'vendor')
     );
 
-    writeFile(dest, code);
+    // writeFile(dest, code);
   })();
 
   //删除.js 减少js的体积

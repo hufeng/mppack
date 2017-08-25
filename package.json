@@ -1,5 +1,5 @@
 {
-  "name": "wxpacker",
+  "name": "wxpack",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/hufeng/wxpacker.git",
@@ -10,19 +10,14 @@
     "test": "npx jest --verbose"
   },
   "bin": {
-    "wxpacker": "./build/index.js"
+    "wxpack": "./build/cli.js"
   },
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "dependencies": {
     "babel-core": "^6.26.0",
