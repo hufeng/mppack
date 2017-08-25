@@ -13,7 +13,7 @@ program
 //main
 (async function main() {
   console.time('build:time:|>');
-  console.log(`🚀 🚀 wxpacker: ${version} 开始构建 `);
+  console.log(`🚀 🚀 wxpack: ${version} 开始构建 `);
 
   //检查当前是不是小程序根目录
   const isWxProject = await isFileExist('app.json');
