@@ -87,10 +87,11 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     nodeModulePath = resolveRelativeModule(join(dirname(filename), moduleName));
     //计算相对路径的ast替换的路径
     transformAstRequirePath = relative(dirname(filename), nodeModulePath);
-    //如果是当前的目录，补充./
-    if (!transformAstRequirePath.startsWith('.')) {
-      transformAstRequirePath = './' + transformAstRequirePath;
-    }
+  }
+
+  //如果是当前的目录，补充./
+  if (!transformAstRequirePath.startsWith('.')) {
+    transformAstRequirePath = './' + transformAstRequirePath;
   }
 
   console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${nodeModulePath}`);
@@ -140,7 +141,7 @@ export const resolveNodeModuleMainEntry = (moduleName: string) => {
   const nodeModulePath = `node_modules/${moduleName}`;
   const exist = fs.existsSync(nodeModulePath);
   if (!exist) {
-    throw new Error(`Could not find ${nodeModulePath} `);
+    throw new Error(`resolveNodeModuleMainEntry: 找不到${nodeModulePath} `);
   }
 
   const pkg = require(`${rootDir}/node_modules/${moduleName}/package.json`);
@@ -162,25 +163,7 @@ export const resolveNodeModuleMainEntry = (moduleName: string) => {
 export const resolveNodeModuleSubModule = (moduleName: string) => {
   let nodeModulePath = `node_modules/${moduleName}`;
 
-  //如果子目录是目录寻找index.js
-  try {
-    const stat = fs.statSync(nodeModulePath);
-    if (stat.isDirectory()) {
-      return nodeModulePath + '/index';
-    }
-  } catch (err) {}
-
-  //如果不是以js结尾，就补js
-  if (!nodeModulePath.endsWith('.js')) {
-    nodeModulePath += '.js';
-  }
-
-  const exist = fs.existsSync(nodeModulePath);
-  if (!exist) {
-    throw new Error(`Could not find ${nodeModulePath}`);
-  }
-
-  return nodeModulePath;
+  return resolveRelativeModule(nodeModulePath);
 };
 
 export const resolveRelativeModule = (modulePath: string) => {
