@@ -49,7 +49,6 @@ const isRegeneratorRuntimeCall = path => {
 
 export default function resolveNodeModule(babel) {
   const { types: t } = babel;
-  let isHadTraverseAsync = false;
 
   return {
     visitor: {
@@ -66,12 +65,6 @@ export default function resolveNodeModule(babel) {
          * 如果是regeneratorRuntime的函数调用，替换
          */
         if (isRegeneratorRuntimeCall(path)) {
-          //如果已经遍历过，就直接返回
-          if (isHadTraverseAsync) {
-            return;
-          }
-
-          isHadTraverseAsync = true;
           const { node, hub: { file } } = path;
           const regeneratorRuntimeAst = file.addImport(
             'regenerator-runtime',
