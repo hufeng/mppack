@@ -66,7 +66,7 @@ export default class Resolver implements IResolver {
         return;
       }
 
-      this.transform(path.replace(rootDir, '**'));
+      this.transform([path.replace(rootDir, '**'), `!${this.output}/**`]);
     });
   }
 
