@@ -43,28 +43,31 @@ export default class Resolver implements IResolver {
    * watchMode
    */
   watch() {
-    if (this.watchMode) {
-      gulp.watch(this.pattern()).on('change', (event: IEvent) => {
-        const { path, type } = event;
-        console.log(`file changed: ${path}, type: ${type}`);
+    //如果不是watchMode直接返回
+    if (!this.watchMode) {
+      return;
+    }
 
-        if (type == 'deleted') {
-          let dest = path.replace(rootDir, `${rootDir}/build`);
-          if (dest.endsWith('.ts')) {
-            dest = dest.replace('.ts', '.js');
-          }
+    gulp.watch(this.pattern()).on('change', (event: IEvent) => {
+      const { path, type } = event;
+      console.log(`file changed: ${path}, type: ${type}`);
 
-          fs.unlink(dest, err => {
-            if (err) {
-              console.warn(err);
-            }
-          });
-          return;
+      if (type == 'deleted') {
+        let dest = path.replace(rootDir, `${rootDir}/build`);
+        if (dest.endsWith('.ts')) {
+          dest = dest.replace('.ts', '.js');
         }
 
-        this.transform(path);
-      });
-    }
+        fs.unlink(dest, err => {
+          if (err) {
+            console.warn(err);
+          }
+        });
+        return;
+      }
+
+      this.transform(path);
+    });
   }
 
   /**

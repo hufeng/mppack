@@ -9,6 +9,7 @@
   "scripts": {
     "test": "npx jest --verbose"
   },
+  "files": ["README.md", "package.json", "build"],
   "bin": {
     "wxpack": "./build/cli.js"
   },
