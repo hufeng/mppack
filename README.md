@@ -1,50 +1,83 @@
 # wxpacker
-微信小程序的webpack
-
-
 构建一个好用的小程序的打包工具，小程序界的webpack
 
 why ?
 
-微信小程序火了之后，对于小程序的开发需要就提上了日程，小程序本身提供的开发方式很简单，但是还有很多不符合前端的开发方式地方
+微信小程序火了之后，对于小程序的开发需要就提上了日程，
+
+小程序本身提供的开发方式很简约，但是还有很多地方不符合现代前端的开发方式
 
 1. 不支持node_modules
-2. 不支持模块的相对路径
-3. 不完整的支持es6 更想用typescript
-4. 异步回调方式太难维护代码
+2. 不支持模块的绝对路径
+3. 不完整的支持es6 或者 更想用typescript
+4. Callback回调方式如果逻辑重太难维护代码，更期待promise/async/await的解决方案
 5. 组件的支持不够完整
 
 
-what?
+Goal?
 
-提供完善的前端开发体验 支持babel， typescript
+提供完整的前端开发体验
 
-自动编译
+1. 自动支持node_modules 通过babel的ast的分析转换自动的将require('immutable') => require('../vendor/immutable/dist/immutable') 自动目录拷贝
 
-解决node_module的支持
+2. 无缝支持babel（babel-preset-env + async/await）/typescript
+
+4. 支持async/await
+
+5. 自动编译
+
 
 how ?
 
-微信小程序的入口是app.json
-
-通过分析app.json 可以得到page的信息
-
-```text
---quick-start
-  -- app.js
-  -- app.wxml
-  -- app.wcss
-  -- pages
-    -- page-a
-    -- page-b
-    -- page-c
+```sh
+cd quick-start
+wxpack
 ```
 
-wxml, wcss文件不做处理，只做一个拷贝
+```text
+quick-start
+ ❯ tree -L 3 -I node_modules
+.
+├── app.js
+├── app.json
+├── app.wxss
+├── build
+│   ├── app.js
+│   ├── app.json
+│   ├── app.wxss
+│   ├── hello.jpg
+│   ├── pages
+│   │   ├── index
+│   │   └── logs
+│   ├── test.js
+│   ├── utils
+│   │   ├── index.js
+│   │   └── util.js
+│   └── vendor
+│       ├── immutable
+│       └── regenerator-runtime
+├── hello.jpg
+├── package.json
+├── pages
+│   ├── index
+│   │   ├── index.js
+│   │   ├── index.wxml
+│   │   ├── index.wxss
+│   │   └── test.js
+│   └── logs
+│       ├── logs.js
+│       ├── logs.json
+│       ├── logs.wxml
+│       └── logs.wxss
+├── test.ts
+├── tsconfig.json
+├── utils
+│   ├── index.js
+│   └── util.js
+└── yarn.lock
 
-分析扫描所有的ts或者js文件，进行模块化处理
+12 directories, 25 files
 
-ts->js->es5
+```
 
-分析模块依赖，如果是依赖了node_modules下面的模块就直接拷贝到vendor
 
