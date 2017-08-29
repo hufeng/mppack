@@ -11,5 +11,10 @@ export default {
   /**
    * watchMode
    */
-  watchMode: false
+  watchMode: false,
+
+  /**
+   * 详细模式
+   */
+  verbose: false
 };

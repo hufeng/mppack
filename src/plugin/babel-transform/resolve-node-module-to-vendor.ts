@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { relative, dirname, resolve, join } from 'path';
+import { relative, dirname, join } from 'path';
 import { writeFile, babelTransformFile } from '../../promisify';
 import cfg from '../../option';
 
@@ -63,7 +63,9 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     throw new Error(`${moduleName} had not filename`);
   }
 
-  console.log(`🙂 正在解析:> ${moduleName}, 被${filename}引用`);
+  if (cfg.verbose) {
+    console.log(`🙂 正在解析:> ${moduleName}, 被${filename}引用`);
+  }
 
   //模块完整的路径
   let nodeModulePath = '';
@@ -94,7 +96,9 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
     transformAstRequirePath = './' + transformAstRequirePath;
   }
 
-  console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${nodeModulePath}`);
+  if (cfg.verbose) {
+    console.log(`🙂 模块:> ${moduleName} 解析完整的路径: ${nodeModulePath}`);
+  }
 
   (async () => {
     //如果已经转换过，直接返回
@@ -118,12 +122,14 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
       `/${cfg.output}/` +
       nodeModulePath.replace('node_modules', 'vendor');
 
-    //trace
-    console.log(
-      '🙂 vendor:|>',
-      nodeModulePath,
-      nodeModulePath.replace('node_modules', 'vendor')
-    );
+    if (cfg.verbose) {
+      //trace
+      console.log(
+        '🙂 vendor:|>',
+        nodeModulePath,
+        nodeModulePath.replace('node_modules', 'vendor')
+      );
+    }
 
     writeFile(dest, code);
   })();

@@ -1,4 +1,3 @@
-import { dirname, relative } from 'path';
 import * as resolveModule from './resolve-node-module-to-vendor';
 
 /**
@@ -65,7 +64,7 @@ export default function resolveNodeModule(babel) {
          * 如果是regeneratorRuntime的函数调用，替换
          */
         if (isRegeneratorRuntimeCall(path)) {
-          const { node, hub: { file } } = path;
+          const { hub: { file } } = path;
           const regeneratorRuntimeAst = file.addImport(
             'regenerator-runtime',
             'default',

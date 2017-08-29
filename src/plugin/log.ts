@@ -3,6 +3,12 @@ import opt from '../option';
 
 export default function log() {
   return through2.obj((file, encoding, callback) => {
+    //如果不是详情模式
+    if (!opt.verbose) {
+      callback(null, file);
+      return;
+    }
+
     //当前正在转换文件
     const relative: string = file.relative;
     //生成的目标文件的路径

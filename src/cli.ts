@@ -36,10 +36,12 @@ program
 
   opt.output = program.output || 'build';
   opt.watchMode = program.watch || false;
+  opt.verbose = program.verbose || false;
 
   console.log(`
   输出目录: ${opt.output}
   watch模式: ${opt.watchMode}
+  verbose模式: ${opt.verbose}
   `);
 
   //解析资源文件
