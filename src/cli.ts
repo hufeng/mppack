@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 import * as program from 'commander';
 import { isFileExist } from './promisify';
-import { version, opt, resolveJS, resolveResource, resolveTS } from './index';
+import {
+  version,
+  opt,
+  resolveJS,
+  resolveResource,
+  resolveTS,
+  resolveImage
+} from './index';
 
 program
   .version(version)
@@ -37,6 +44,9 @@ program
 
   //解析ts
   resolveTS();
+
+  //解析image
+  resolveImage();
 
   process.on('exit', () => {
     console.log('\n');
