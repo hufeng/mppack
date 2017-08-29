@@ -4,10 +4,10 @@ import { isFileExist } from './promisify';
 import {
   version,
   opt,
-  resolveJS,
-  resolveResource,
-  resolveTS,
-  resolveImage
+  ResourceResolver,
+  ImageResolver,
+  JavascriptResolver,
+  TypescriptResolver
 } from './index';
 
 program
@@ -15,11 +15,12 @@ program
   .usage('[-o path]')
   .option('-o, --output [path]', 'Which bundle output')
   .option('-v, --verbose', 'show verbose log')
+  .option('-w, --watch', 'watch mode')
   .parse(process.argv);
 
 //main
 (async function main() {
-  console.time('build:time:|>');
+  console.time('⛽️ build:time:|>');
   console.log(`🚀 🚀 wxpack: ${version} 开始构建 `);
 
   //检查当前是不是小程序根目录
@@ -33,24 +34,32 @@ program
     return;
   }
 
-  //获取目标目录
   opt.output = program.output || 'build';
+  opt.watchMode = program.watch || false;
+
+  console.log(`
+  输出目录: ${opt.output}
+  watch模式: ${opt.watchMode}
+  `);
 
   //解析资源文件
-  resolveResource();
+  new ResourceResolver();
 
   //解析js
-  resolveJS();
+  new JavascriptResolver();
 
   //解析ts
-  resolveTS();
+  new TypescriptResolver();
 
   //解析image
-  resolveImage();
+  new ImageResolver();
 
-  process.on('exit', () => {
-    console.log('\n');
-    console.timeEnd('build:time:|>');
-    console.log('\n');
-  });
+  //如果不是watchmode记录下编译时间
+  if (!opt.watchMode) {
+    process.on('exit', () => {
+      console.log('\n');
+      console.timeEnd('⛽️ build:time:|>');
+      console.log('\n');
+    });
+  }
 })();

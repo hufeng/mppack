@@ -6,5 +6,10 @@ export default {
    * output path
    * 默认是build
    */
-  output: 'build'
+  output: 'build',
+
+  /**
+   * watchMode
+   */
+  watchMode: false
 };

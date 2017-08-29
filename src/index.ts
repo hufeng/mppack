@@ -1,8 +1,15 @@
-import resolveResource from './resolve/resolve-resource';
-import resolveJS from './resolve/resolve-js';
-import resolveTS from './resolve/resolve-ts';
-import resolveImage from './resolve/resolve-image';
+import ResourceResolver from './resolve/resource';
+import JavascriptResolver from './resolve/javascript';
+import TypescriptResolver from './resolve/typescript';
+import ImageResolver from './resolve/image';
 import opt from './option';
 const version = require('../package.json').version;
 
-export { version, resolveJS, resolveResource, resolveTS, resolveImage, opt };
+export {
+  version,
+  opt,
+  ResourceResolver,
+  JavascriptResolver,
+  TypescriptResolver,
+  ImageResolver
+};

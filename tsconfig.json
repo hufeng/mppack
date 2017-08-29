@@ -3,8 +3,8 @@
     "target": "es2015",
     "module": "commonjs",
     "outDir": "./build",
-    "allowUnreachableCode": true,
-    "allowUnusedLabels": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "experimentalDecorators": true
