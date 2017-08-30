@@ -50,6 +50,14 @@ export default class Resolver implements IResolver {
 
     gulp.watch(this.pattern()).on('change', (event: IEvent) => {
       const { path, type } = event;
+
+      /**
+       * 如果是输出的目录发生变化，直接跳过
+       */
+      if (path.includes(`${rootDir}/${this.output}`)) {
+        return;
+      }
+
       console.log(`file changed: ${path}, type: ${type}`);
 
       if (type == 'deleted') {

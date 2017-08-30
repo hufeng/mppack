@@ -11,7 +11,7 @@
   },
   "files": ["README.md", "package.json", "build"],
   "bin": {
-    "wxpack": "./build/cli.js"
+    "wxpack": "./lib/cli.js"
   },
   "jest": {
     "transform": {
