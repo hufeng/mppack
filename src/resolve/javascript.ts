@@ -10,6 +10,7 @@ export default class JSResolver extends Resolver {
     return [
       //扫描所有的js
       '**/*.js',
+      '!*.config.js',
       //排除ouput目录下面的js
       `!${this.output}/**`,
       //排除node_modules下面的js

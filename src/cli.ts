@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import * as path from 'path';
 import * as program from 'commander';
 import { isFileExist } from './promisify';
 import {
@@ -16,7 +17,34 @@ program
   .option('-o, --output [path]', 'Which bundle output')
   .option('-v, --verbose', 'show verbose log')
   .option('-w, --watch', 'watch mode')
+  .option('-c, --config', 'specify a config file')
   .parse(process.argv);
+
+const parseOption = async () => {
+  //读取用户设置的参数
+  opt.output = program.output || 'build';
+  opt.watchMode = program.watch || false;
+  opt.verbose = program.verbose || false;
+  const configFile = program.config || 'wxpack.config.js';
+
+  //如果设置了配置文件
+  const isConfigFile = await isFileExist(configFile);
+  if (isConfigFile) {
+    console.log(`read config file: ${configFile}`);
+    const filePath = path.resolve(configFile);
+    const config = require(filePath);
+
+    config.output && (opt.output = config.output);
+    config.verbose && (opt.verbose = config.verbose);
+    config.watchMode && (opt.watchMode = config.watchMode);
+  }
+
+  console.log(`
+  输出目录: ${opt.output}
+  watch模式: ${opt.watchMode}
+  verbose模式: ${opt.verbose}
+  `);
+};
 
 //main
 (async function main() {
@@ -34,15 +62,8 @@ program
     return;
   }
 
-  opt.output = program.output || 'build';
-  opt.watchMode = program.watch || false;
-  opt.verbose = program.verbose || false;
-
-  console.log(`
-  输出目录: ${opt.output}
-  watch模式: ${opt.watchMode}
-  verbose模式: ${opt.verbose}
-  `);
+  //等待配置项解析
+  await parseOption();
 
   //解析资源文件
   new ResourceResolver();
