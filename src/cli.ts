@@ -17,7 +17,7 @@ program
   .option('-o, --output [path]', 'Which bundle output')
   .option('-v, --verbose', 'show verbose log')
   .option('-w, --watch', 'watch mode')
-  .option('-c, --config', 'specify a config file')
+  .option('-c, --config [file]', 'specify a config file')
   .parse(process.argv);
 
 const parseOption = async () => {
