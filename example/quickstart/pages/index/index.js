@@ -1,23 +1,20 @@
 //index.js
+import { QL, RxPage } from '../../rxsource/index';
+
 //获取应用实例
 var app = getApp();
 
-Page({
+const helloQL = QL('helloQL', state => state.motto + 'hhh');
+
+RxPage({
   data: {
-    motto: 'Hello World',
-    userInfo: {}
+    motto: 'hello world'
   },
-  //事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    });
+  onLoad() {
+    this.hello();
   },
-  async onLoad() {
-    //调用应用实例的方法获取全局数据
-    const userInfo = await app.getUserInfo();
-    this.setData({
-      userInfo
-    });
+  hello() {
+    console.log(this);
+    this.setData({ motto: 'hello 2' });
   }
 });
