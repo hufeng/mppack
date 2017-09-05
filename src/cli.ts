@@ -11,6 +11,9 @@ import {
   TypescriptResolver
 } from './index';
 
+/**
+ * cli
+ */
 program
   .version(version)
   .usage('[-o path]')
@@ -20,12 +23,19 @@ program
   .option('-c, --config [file]', 'specify a config file')
   .parse(process.argv);
 
+/**
+ * 解析可配置参数
+ * 从配置项，从文件，文件会覆盖配置项
+ */
 const parseOption = async () => {
   //读取用户设置的参数
   opt.output = program.output || 'build';
   opt.watchMode = program.watch || false;
   opt.verbose = program.verbose || false;
+
   const configFile = program.config || 'wxpack.config.js';
+
+  const isNotUndefined = (val: any) => typeof val !== 'undefined';
 
   //如果设置了配置文件
   const isConfigFile = await isFileExist(configFile);
@@ -34,9 +44,9 @@ const parseOption = async () => {
     const filePath = path.resolve(configFile);
     const config = require(filePath);
 
-    config.output && (opt.output = config.output);
-    config.verbose && (opt.verbose = config.verbose);
-    config.watchMode && (opt.watchMode = config.watchMode);
+    isNotUndefined(config.output) && (opt.output = config.output);
+    isNotUndefined(config.verbose) && (opt.verbose = config.verbose);
+    isNotUndefined(config.watchMode) && (opt.watchMode = config.watchMode);
   }
 
   console.log(`
