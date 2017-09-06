@@ -23,52 +23,21 @@ program
   .option('-c, --config [file]', 'specify a config file')
   .parse(process.argv);
 
-/**
- * 解析可配置参数
- * 从配置项，从文件，文件会覆盖配置项
- */
-const parseOption = async () => {
-  //读取用户设置的参数
-  opt.output = program.output || 'build';
-  opt.watchMode = program.watch || false;
-  opt.verbose = program.verbose || false;
-
-  const configFile = program.config || 'wxpack.config.js';
-
-  const isNotUndefined = (val: any) => typeof val !== 'undefined';
-
-  //如果设置了配置文件
-  const isConfigFile = await isFileExist(configFile);
-  if (isConfigFile) {
-    console.log(`read config file: ${configFile}`);
-    const filePath = path.resolve(configFile);
-    const config = require(filePath);
-
-    isNotUndefined(config.output) && (opt.output = config.output);
-    isNotUndefined(config.verbose) && (opt.verbose = config.verbose);
-    isNotUndefined(config.watchMode) && (opt.watchMode = config.watchMode);
-  }
-
-  console.log(`
-  输出目录: ${opt.output}
-  watch模式: ${opt.watchMode}
-  verbose模式: ${opt.verbose}
-  `);
-};
-
 //main
 (async function main() {
   console.time('⛽️ build:time:|>');
   console.log(`🚀 🚀 wxpack: ${version} 开始构建 `);
 
+  //check是不是小程序的根目录
   //检查当前是不是小程序根目录
   const isWxProject = await isFileExist('app.json');
+
   if (!isWxProject) {
     console.log(`
-    😞  当前目录:|>${process.cwd()}
-    😞  不是小程序的根目录（没有包含app.json）
-    🙂  请检查当前的文件路径
-    `);
+     😞  当前目录:|>${process.cwd()}
+     😞  不是小程序的根目录（没有包含app.json）
+     🙂  请检查当前的文件路径
+     `);
     return;
   }
 
@@ -96,3 +65,34 @@ const parseOption = async () => {
     });
   }
 })();
+
+/**
+ * 解析可配置参数
+ * 从配置项，从文件，文件会覆盖配置项
+ */
+async function parseOption() {
+  //读取用户设置的参数
+  opt.output = program.output || 'build';
+  opt.watchMode = program.watch || false;
+  opt.verbose = program.verbose || false;
+
+  const isNotUndefined = (val: any) => typeof val !== 'undefined';
+  const configFile = program.config || 'wxpack.config.js';
+  //如果设置了配置文件
+  const isConfigFile = await isFileExist(configFile);
+  if (isConfigFile) {
+    console.log(`read config file: ${configFile}`);
+    const filePath = path.resolve(configFile);
+    const config = require(filePath);
+
+    isNotUndefined(config.output) && (opt.output = config.output);
+    isNotUndefined(config.verbose) && (opt.verbose = config.verbose);
+    isNotUndefined(config.watchMode) && (opt.watchMode = config.watchMode);
+  }
+
+  console.log(`
+  输出目录: ${opt.output}
+  watch模式: ${opt.watchMode}
+  verbose模式: ${opt.verbose}
+  `);
+}

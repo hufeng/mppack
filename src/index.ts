@@ -6,8 +6,8 @@ import opt from './option';
 const version = require('../package.json').version;
 
 export {
-  version,
   opt,
+  version,
   ResourceResolver,
   JavascriptResolver,
   TypescriptResolver,

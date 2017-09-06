@@ -1,5 +1,6 @@
 import * as through2 from 'through2';
 import * as babel from 'babel-core';
+import option from '../../option';
 import resolveNodeModule from './babel-plugin-resolve-node-module';
 
 /**
@@ -30,6 +31,7 @@ export default function babelTransform(type: 'module' | 'file' = 'file') {
           if (err) {
             throw err;
           }
+
           file.contents = new Buffer(result.code, 'utf8');
           callback(null, file);
         }

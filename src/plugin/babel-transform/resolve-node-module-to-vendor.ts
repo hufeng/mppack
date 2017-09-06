@@ -110,12 +110,12 @@ export const resolveNodeModule = (moduleName: string, filename: string) => {
       plugins: [resolveModuleDependencies]
     });
 
-    //记录已经transform的模块
-    cacheModulePath.push(nodeModulePath);
-
     if (err) {
       throw err;
     }
+
+    //记录已经transform的模块
+    cacheModulePath.push(nodeModulePath);
 
     const dest =
       rootDir +
