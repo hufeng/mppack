@@ -2,7 +2,8 @@
   "devDependencies": {
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.0"
+    "babel-preset-env": "^1.6.0",
+    "wxpack": "^1.0.0"
   },
   "dependencies": {
     "immutable": "^3.8.1",

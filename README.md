@@ -30,6 +30,11 @@ Goal?
 how ?
 
 ```sh
+npm install -g wxpack # 全局安装
+yarn add wxpack --dev #项目依赖
+```
+
+```sh
 cd quick-start
 wxpack
 ```
@@ -78,6 +83,40 @@ quick-start
 
 12 directories, 25 files
 
+```
+
+## help
+```text
+❯ wxpack --help
+
+  Usage: wxpack [-o path]
+
+
+  Options:
+
+    -V, --version        output the version number
+    -o, --output [path]  Which bundle output
+    -v, --verbose        show verbose log
+    -w, --watch          watch mode
+    -c, --config [file]  specify a config file
+    -h, --help           output usage information
+                                              
+```
+
+通过配置文件来配置,默认读取本地的wxpack.config.js
+
+可以通过-c来指定文件的路径
+
+```js
+//wxpack.config.js
+module.exports = {
+  //不需要'./build', 默认相对当前的目录
+  output: 'build',
+  //是否开启watch模式
+  watchMode: true/false，
+  //开启或者关闭log详情
+  verbose: true/false
+}
 ```
 
 

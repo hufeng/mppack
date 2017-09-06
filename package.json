@@ -9,11 +9,7 @@
   "scripts": {
     "test": "npx jest --verbose"
   },
-  "files": [
-    "README.md",
-    "package.json",
-    "build"
-  ],
+  "files": ["README.md", "package.json", "lib"],
   "bin": {
     "wxpack": "./lib/cli.js"
   },
@@ -22,12 +18,7 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "dependencies": {
     "babel-core": "^6.26.0",
