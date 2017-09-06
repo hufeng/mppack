@@ -1,41 +1,47 @@
 # wxpack
 构建一个好用的小程序的打包工具，小程序界的webpack
 
-why ?
+## why ?
 
-微信小程序火了之后，对于小程序的开发需要就提上了日程，
+微信小程序(Cloud Native App)以燎原之势席卷而来之后，对于小程序的开发需求就提上了日程
 
-小程序本身提供的开发方式很简约，但是还有很多地方不符合现代前端的开发方式
+小程序本身提供的开发方式简约却封闭，还有很多地方不符合现代前端的开发方式
 
 1. 不支持node_modules
-2. 不支持模块的绝对路径
-3. 不完整的支持es6 或者 更想用typescript
+2. 不支持模块的绝对路径（导致了不支持node_modules）
+3. 不完整的支持es6 或者 更想用typescript(效率工具)
 4. Callback回调方式如果逻辑重太难维护代码，更期待promise/async/await的解决方案
-5. 组件的支持不够完整
+5. 组件的支持不够完整（很期待wxs）
 
 
-Goal?
+## Goal?
 
-提供完整的前端开发体验
+提供比较完整的前端开发体验
 
-1. 自动支持node_modules 通过babel的ast的分析转换自动的将require('immutable') => require('../vendor/immutable/dist/immutable') 自动目录拷贝
+1. 自动支持node_modules 
 
-2. 无缝支持babel（babel-preset-env + async/await）/typescript
+2. 无缝支持babel（babel-preset-env） / typescript
 
-4. 支持async/await
+4. 支持async/await (babel-plugin-transform-runtime 并不能正常的在小程序中运行)
 
 5. 自动编译
 
 
-how ?
+## getting started
+
+install
 
 ```sh
-npm install -g wxpack # 全局安装
-yarn add wxpack --dev #项目依赖
+# 全局安装
+npm install -g wxpack / yarn global add wxpack 
+
+#项目依赖
+yarn add wxpack --dev 
 ```
 
 ```sh
 cd quick-start
+
 wxpack
 ```
 
@@ -46,7 +52,7 @@ quick-start
 ├── app.js
 ├── app.json
 ├── app.wxss
-├── build
+├── build // compile之后的结果
 │   ├── app.js
 │   ├── app.json
 │   ├── app.wxss
