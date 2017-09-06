@@ -1,9 +1,8 @@
+import * as fs from 'fs';
 import * as gulp from 'gulp';
 import * as ts from 'gulp-typescript';
 import { log, babelTransform } from '../plugin';
 import Resolver, { IPattern } from './resolver';
-
-const tsProject = ts.createProject('tsconfig.json');
 
 /**
  * typescript
@@ -22,6 +21,14 @@ export default class TypeScriptResolver extends Resolver {
   }
 
   transform(pattern: IPattern) {
+    const isExist = fs.existsSync('tsconfig.json');
+    let tsProject = ts.createProject({
+      sourceMap: false
+    });
+    if (isExist) {
+      tsProject = ts.createProject('tsconfig.json');
+    }
+
     gulp
       .src(pattern)
       .pipe(log())
