@@ -28,6 +28,9 @@
     "typescript": "3.2.1"
   },
   "devDependencies": {
+    "@types/commander": "2.12.2",
+    "@types/gulp-typescript": "2.13.0",
+    "@types/del": "3.0.1",
     "@types/node": "10.12.12",
     "@types/gulp": "4.0.5",
     "@types/jest": "23.3.10",

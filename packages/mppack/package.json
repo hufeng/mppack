@@ -7,10 +7,12 @@
   "keywords": [
     "mpapp's webpack"
   ],
+  "bin": "./lib/cli.js",
   "author": "hufeng",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.19.0",
+    "del": "^3.0.0",
     "gulp": "^4.0.0"
   }
 }
