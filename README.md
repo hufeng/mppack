@@ -1,31 +1,30 @@
-# wxpack
-构建一个好用的小程序的打包工具，小程序界的webpack
+# mppack
+
+构建一个好用的小程序的打包工具，小程序界的 webpack
 
 ## why ?
 
-微信小程序(Cloud Native App)以燎原之势席卷而来之后，对于小程序的开发需求就提上了日程
+各种(钉钉，微信，支付宝)小程序(Cloud Native App)以燎原之势席卷而来之后，对于小程序的开发需求就提上了日程
 
 小程序本身提供的开发方式简约却封闭，还有很多地方不符合现代前端的开发方式
 
-1. 不支持node_modules
-2. 不支持模块的绝对路径（导致了不支持node_modules）
-3. 不完整的支持es6 或者 更想用typescript(效率工具)
-4. Callback回调方式如果逻辑重太难维护代码，更期待promise/async/await的解决方案
-5. 组件的支持不够完整（很期待wxs）
-
+1. <del>不支持 node_modules</del>
+2. <del>不支持模块的绝对路径（导致了不支持 node_modules）</del>
+3. 不完整的支持 es6 或者 更想用 typescript(效率工具)
+4. Callback 回调方式如果逻辑重太难维护代码，更期待 promise/async/await 的解决方案
+5. 组件的支持不够完整（很期待 wxs）
 
 ## Goal?
 
-提供比较完整的前端开发体验
+提供工程化的改进，而不是框架上的改进
 
-1. 自动支持node_modules 
+1.<del> 自动支持 node_modules</del>
 
-2. 无缝支持babel（babel-preset-env） / typescript
+2. 无缝支持 babel（babel-preset-env） / typescript
 
-4. 支持async/await (babel-plugin-transform-runtime 并不能正常的在小程序中运行)
+3. 支持 async/await (babel-plugin-transform-runtime 并不能正常的在小程序中运行)
 
-5. 自动编译
-
+4. 自动编译
 
 ## getting started
 
@@ -33,16 +32,16 @@ install
 
 ```sh
 # 全局安装
-npm install -g wxpack / yarn global add wxpack 
+npm install -g mppack / yarn global add mppack
 
 #项目依赖
-yarn add wxpack --dev 
+yarn add mppack --dev
 ```
 
 ```sh
 cd quick-start
 
-wxpack
+mppack
 ```
 
 ```text
@@ -92,8 +91,9 @@ quick-start
 ```
 
 ## help
+
 ```text
-❯ wxpack --help
+❯ mppack --help
 
   Usage: wxpack [-o path]
 
@@ -106,12 +106,12 @@ quick-start
     -w, --watch          watch mode
     -c, --config [file]  specify a config file
     -h, --help           output usage information
-                                              
+
 ```
 
-通过配置文件来配置,默认读取本地的wxpack.config.js
+通过配置文件来配置,默认读取本地的 mppack.config.js
 
-可以通过-c来指定文件的路径
+可以通过-c 来指定文件的路径
 
 ```js
 //wxpack.config.js
@@ -124,5 +124,3 @@ module.exports = {
   verbose: true/false
 }
 ```
-
-
