@@ -1,0 +1,16 @@
+{
+  "name": "mppack",
+  "version": "1.0.0",
+  "description": "mpapp's webpack",
+  "main": "./lib/index.js",
+  "types": "./lib/typings/index.d.ts",
+  "keywords": [
+    "mpapp's webpack"
+  ],
+  "author": "hufeng",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "gulp": "^4.0.0"
+  }
+}
