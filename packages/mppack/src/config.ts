@@ -1,8 +1,25 @@
 export default {
-  dest: 'build',
-  javascript: ['*.js', '!node_modules/**'],
-  typescript: ['**/*.ts', '!node_modules/**'],
+  output: 'build',
+  javascript: [
+    '**/*.js',
+    '!*.config.js',
+    `!${this.output}/**`,
+    '!node_modules/**'
+  ],
+  typescript: [
+    '**/*.ts',
+    '!vendor/**',
+    `!${this.output}/**`,
+    '!node_modules/**'
+  ],
   css: [],
-  image: [],
-  json: []
+  image: [
+    '**/*.png',
+    '**/*.jpg',
+    '**/*.gif',
+    `!${this.output}/**`,
+    '!node_modules/**'
+  ],
+  json: [],
+  less: []
 };

@@ -4,7 +4,7 @@ import ts from 'gulp-typescript';
 import config from './config';
 
 export const clean = () => {
-  return del(config.dest);
+  return del(config.output);
 };
 
 export const typescript = () => {
@@ -12,7 +12,11 @@ export const typescript = () => {
   return gulp
     .src(config.typescript)
     .pipe(tsProject())
-    .pipe(gulp.dest(config.dest));
+    .pipe(gulp.dest(config.output));
+};
+
+export const watch = () => {
+  gulp.watch(config.typescript, typescript);
 };
 
 export const build = gulp.series(clean, gulp.parallel(typescript));
