@@ -64,14 +64,23 @@ export const less = () => {
 };
 
 export const watch = () => {
-  gulp.watch(config.typescript, typescript);
-  gulp.watch(config.image, image);
-  gulp.watch(config.json, json);
-  gulp.watch(config.css, css);
-  gulp.watch(config.less, less);
+  gulp.watch(config.typescript, gulp.parallel(typescript));
+  gulp.watch(config.image, gulp.parallel(image));
+  gulp.watch(config.json, gulp.parallel(json));
+  gulp.watch(config.css, gulp.parallel(css));
+  gulp.watch(config.less, gulp.parallel(less));
 };
 
 export const build = gulp.series(
   clean,
   gulp.parallel(typescript, image, json, css, less)
 );
+
+export const start = (watchMode: boolean, cb: Function) => {
+  build(() => {
+    cb();
+    if (watchMode) {
+      watch();
+    }
+  });
+};
