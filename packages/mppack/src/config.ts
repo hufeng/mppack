@@ -8,7 +8,7 @@ export default {
   typescript: ['**/*.ts', '!vendor/**', ...excludes],
   css: ['**/*.css', ...excludes],
   image: ['**/*.png', '**/*.jpg', '**/*.gif', ...excludes],
-  json: ['**/*.json', ...excludes],
+  json: ['**/*.json', '!tsconfig.json', ...excludes],
   less: ['**/*.less', ...excludes],
   //eapp, wxapp
   type: 'eapp'
