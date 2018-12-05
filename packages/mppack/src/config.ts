@@ -1,25 +1,13 @@
+const excludes = [`!${this.output}/**`, '!node_modules/**'];
+
 export default {
   output: 'build',
-  javascript: [
-    '**/*.js',
-    '!*.config.js',
-    `!${this.output}/**`,
-    '!node_modules/**'
-  ],
-  typescript: [
-    '**/*.ts',
-    '!vendor/**',
-    `!${this.output}/**`,
-    '!node_modules/**'
-  ],
-  css: [],
-  image: [
-    '**/*.png',
-    '**/*.jpg',
-    '**/*.gif',
-    `!${this.output}/**`,
-    '!node_modules/**'
-  ],
-  json: ['**/*.json', '!node_modules/**'],
-  less: []
+  javascript: ['**/*.js', '!*.config.js', ...excludes],
+  typescript: ['**/*.ts', '!vendor/**', ...excludes],
+  css: ['**/*.css', ...excludes],
+  image: ['**/*.png', '**/*.jpg', '**/*.gif', ...excludes],
+  json: ['**/*.json', ...excludes],
+  less: ['**/*.less', ...excludes],
+  //eapp, wxapp
+  type: 'eapp'
 };

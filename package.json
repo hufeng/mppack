@@ -28,6 +28,8 @@
     "typescript": "3.2.1"
   },
   "devDependencies": {
+    "@types/gulp-less": "0.0.31",
+    "@types/gulp-rename": "0.0.33",
     "@types/gulp-imagemin": "4.1.1",
     "@types/commander": "2.12.2",
     "@types/gulp-typescript": "2.13.0",
