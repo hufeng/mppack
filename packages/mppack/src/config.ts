@@ -20,6 +20,6 @@ export default {
     `!${this.output}/**`,
     '!node_modules/**'
   ],
-  json: [],
+  json: ['**/*.json', '!node_modules/**'],
   less: []
 };

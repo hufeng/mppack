@@ -23,9 +23,13 @@ export const typescript = () => {
     .pipe(gulp.dest(config.output));
 };
 
+export const json = () => {
+  return gulp.src(config.json).pipe(gulp.dest(config.output));
+};
+
 export const watch = () => {
   gulp.watch(config.typescript, typescript);
   gulp.watch(config.image, image);
 };
 
-export const build = gulp.series(clean, gulp.parallel(typescript, image));
+export const build = gulp.series(clean, gulp.parallel(typescript, image, json));
