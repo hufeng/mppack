@@ -5,22 +5,13 @@ import rename from 'gulp-rename';
 import config from '../config';
 import { changed } from '../plugin/changed';
 import { log } from '../plugin/log';
+import { getMpCssExtname } from '../util.';
 
 const debugLog = debug('mppack:task:less');
 
 export const less = () => {
   const { output, less, target } = config;
-  let extname = 'wxss';
-  switch (target) {
-    //微信
-    case 'wxapp':
-      extname = '.wxss';
-      break;
-    //钉钉e应用
-    case 'eapp':
-      extname = '.acss';
-      break;
-  }
+  let extname = getMpCssExtname(target);
   debugLog(
     'output: %s, target: %s, extname: %s, css: %j',
     output,
