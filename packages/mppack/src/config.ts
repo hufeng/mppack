@@ -5,7 +5,7 @@ export class Configuration {
   target: 'eapp' | 'wxapp' = 'eapp';
 
   get excludes() {
-    return [`!${this.output}/**`, '!node_modules/**'];
+    return [`!${this.output}/**`];
   }
 
   get javascript() {
