@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import program from 'commander';
 import { say } from 'cowsay';
+import log from 'fancy-log';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
@@ -21,23 +22,23 @@ program
 
 //main
 (async () => {
-  console.log(say({ text: `🚀🚀mppack开始构建` }));
-  console.time('⛽️ build:time:|>');
+  console.log(say({ text: `🚀🚀mppack@${version}开始为您构建` }));
+  console.time('⛽️ finish |>');
 
   //check是不是小程序的根目录
   //检查当前是不是小程序根目录
   const isWxProject = await isFileExist('app.json');
 
   if (!isWxProject) {
-    console.warn(`😞当前mppack版本 => ${version}`);
-    console.warn(`😞当前目录 => ${process.cwd()}`);
-    console.warn(`😞不是小程序的根目录`);
-    console.warn(`😞请检查当前的目录`);
+    log(`😞当前mppack版本 => ${version}`);
+    log(`😞当前目录 => ${process.cwd()}`);
+    log(`😞不是小程序的根目录`);
+    log(`😞请检查当前的目录`);
     return;
   }
 
   await parseOption();
-  start(config.watch, () => console.timeEnd('⛽️ build:time:|>'));
+  start(config.watch, () => console.timeEnd('⛽️ finish |>'));
 })();
 
 /**
@@ -54,15 +55,15 @@ async function parseOption() {
   const configFile = program.config || 'mppack.config.js';
 
   if (await isFileExist(configFile)) {
-    console.log(`read config file: ${configFile}`);
+    log(`read config file: ${configFile}`);
     const cfg = require(path.join(__dirname, configFile));
     isNotUndefined(cfg.output) && (config.output = config.output);
     isNotUndefined(cfg.verbose) && (config.verbose = config.verbose);
     isNotUndefined(cfg.watch) && (config.watch = config.watch);
   }
 
-  console.log(`当前mppack版本 => ${version}`);
-  console.log(`输出目录 => ${config.output}`);
-  console.log(`watch模式 => ${config.watch}`);
-  console.log(`verbose模式 => ${config.verbose}`);
+  log(`当前mppack版本 => ${version}`);
+  log(`输出目录 => ${config.output}`);
+  log(`watch模式 => ${config.watch}`);
+  log(`verbose模式 => ${config.verbose}`);
 }

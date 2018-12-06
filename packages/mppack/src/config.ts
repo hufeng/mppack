@@ -1,15 +1,36 @@
-const excludes = [`!${this.output}/**`, '!node_modules/**'];
+export class Configuration {
+  output = 'build';
+  watch = false;
+  verbose = false;
+  target: 'eapp' | 'wxapp' = 'eapp';
 
-export default {
-  output: 'build',
-  watch: false,
-  verbose: false,
-  javascript: ['**/*.js', '!*.config.js', ...excludes],
-  typescript: ['**/*.ts', '!vendor/**', ...excludes],
-  css: ['**/*.css', ...excludes],
-  image: ['**/*.png', '**/*.jpg', '**/*.gif', ...excludes],
-  json: ['**/*.json', '!tsconfig.json', ...excludes],
-  less: ['**/*.less', ...excludes],
-  //eapp, wxapp
-  type: 'eapp'
-};
+  get excludes() {
+    return [`!${this.output}/**`, '!node_modules/**'];
+  }
+
+  get javascript() {
+    return ['**/*.js', '!*.config.js', ...this.excludes];
+  }
+
+  get typescript() {
+    return ['**/*.ts', '!vendor/**', ...this.excludes];
+  }
+
+  get css() {
+    return ['**/*.css', ...this.excludes];
+  }
+
+  get less() {
+    return ['**/*.less', ...this.excludes];
+  }
+
+  get json() {
+    return ['**/*.json', '!tsconfig.json', ...this.excludes];
+  }
+
+  get image() {
+    return ['**/*.png', '**/*.jpg', '**/*.gif', ...this.excludes];
+  }
+}
+
+export default new Configuration();
