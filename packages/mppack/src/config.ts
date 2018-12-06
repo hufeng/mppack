@@ -31,6 +31,14 @@ export class Configuration {
   get image() {
     return ['**/*.png', '**/*.jpg', '**/*.gif', ...this.excludes];
   }
+
+  get wxss() {
+    return ['**/*.wxss', ...this.excludes];
+  }
+
+  get acss() {
+    return ['**/*.acss', ...this.excludes];
+  }
 }
 
 export default new Configuration();
