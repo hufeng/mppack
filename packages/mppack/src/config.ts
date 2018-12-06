@@ -25,7 +25,7 @@ export class Configuration {
   }
 
   get json() {
-    return ['**/*.json', '!tsconfig.json', ...this.excludes];
+    return ['**/*.json', '!tsconfig.json', '!package.json', ...this.excludes];
   }
 
   get image() {
