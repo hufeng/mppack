@@ -5,6 +5,7 @@ import path from 'path';
 import config from '../config';
 import { changeFileExtname, getMpCssExtname } from '../util.';
 import { acss } from './acss';
+import { axml } from './axml';
 import { clean } from './clean';
 import { css } from './css';
 import { image } from './image';
@@ -12,6 +13,7 @@ import { javascript } from './js';
 import { json } from './json';
 import { less } from './less';
 import { typescript } from './typescript';
+import { wxml } from './wxml';
 import { wxss } from './wxss';
 const rootDir = process.cwd();
 
@@ -24,7 +26,9 @@ export const watch = () => {
     [config.css, css, getMpCssExtname(config.target)],
     [config.less, less, getMpCssExtname(config.target)],
     [config.wxss, wxss],
-    [config.acss, acss]
+    [config.acss, acss],
+    [config.axml, axml],
+    [config.wxml, wxml]
   ] as Array<[string[], () => void, string]>;
 
   const { output } = config;
@@ -44,7 +48,18 @@ export const watch = () => {
 
 export const build = gulp.series(
   clean,
-  gulp.parallel(typescript, image, less, css, json, javascript, wxss, acss)
+  gulp.parallel(
+    typescript,
+    image,
+    less,
+    css,
+    json,
+    javascript,
+    wxss,
+    acss,
+    axml,
+    wxml
+  )
 );
 
 export const start = (watchMode: boolean, cb: Function) => {

@@ -39,6 +39,14 @@ export class Configuration {
   get acss() {
     return ['**/*.acss', ...this.excludes];
   }
+
+  get axml() {
+    return ['**/*.axml', ...this.excludes];
+  }
+
+  get wxml() {
+    return ['**/*.wxml', ...this.excludes];
+  }
 }
 
 export default new Configuration();
