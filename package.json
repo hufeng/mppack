@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "mppack",
+  "name": "mppack-proj",
   "workspaces": [
     "packages/*"
   ],
@@ -9,11 +9,11 @@
   "description": "小程序界的webpack -  mpapp webpack",
   "license": "MIT",
   "scripts": {
-    "test": "npx jest --verbose"
+    "test": "npx jest --verbose --watch"
   },
   "jest": {
     "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.tsx?$": "ts-jest"
     },
     "notify": true,
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
@@ -42,6 +42,7 @@
     "@types/jest": "23.3.10",
     "jest": "23.6.0",
     "babel-jest": "23.6.0",
-    "ts-jest": "23.10.5"
+    "ts-jest": "23.10.5",
+    "mock-jest-console": "1.1.1"
   }
 }

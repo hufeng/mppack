@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test mue 1`] = `
+Object {
+  "_cacheQL": Object {},
+  "data": Object {},
+  "dev": false,
+  "effect": Array [
+    RxLang {
+      "lang": Array [
+        Array [
+          "list",
+          0,
+          "name",
+        ],
+        [Function],
+      ],
+      "name": "helloRL",
+    },
+  ],
+  "getter": Object {
+    "hello": QueryLang {
+      "id": 1,
+      "lang": Array [
+        Array [
+          "list",
+          0,
+        ],
+        [Function],
+      ],
+      "name": "helloQL",
+    },
+  },
+  "sayHello": [Function],
+}
+`;

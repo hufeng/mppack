@@ -2879,6 +2879,11 @@ imagemin@^6.0.0:
     pify "^3.0.0"
     replace-ext "^1.0.0"
 
+immer@^1.8.0:
+  version "1.8.0"
+  resolved "http://registry.npm.taobao.org/immer/download/immer-1.8.0.tgz#afa8393996a1f3f5255019e7d10c29d42dd95225"
+  integrity sha1-r6g5OZah8/UlUBnn0Qwp1C3ZUiU=
+
 import-lazy@^3.1.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/import-lazy/download/import-lazy-3.1.0.tgz#891279202c8a2280fdbd6674dbd8da1a1dfc67cc"
@@ -4294,6 +4299,11 @@ mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   resolved "http://registry.npm.qianmi.com/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mock-jest-console@1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/mock-jest-console/download/mock-jest-console-1.1.1.tgz#30cdc15684480f30efcf196925459aa89d1e705c"
+  integrity sha1-MM3BVoRIDzDvzxlpJUWaqJ0ecFw=
 
 ms@2.0.0:
   version "2.0.0"
