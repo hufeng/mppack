@@ -6,13 +6,28 @@ import { RL } from '../rx/rl';
 window['Page'] = jest.fn(obj => obj);
 
 it('test mue', () => {
+  const PaginationMixin = {
+    data: {
+      pageList: []
+    },
+    pageNum: 0,
+    pageSize: 20,
+    onPullDownRefresh() {
+      // this.fetchData()
+    },
+    onReachBottom() {
+      // this.fetchData()
+    },
+    fetchData(url, params) {},
+    refreshFetchData(url, paramm) {}
+  };
+
   const mue = Mue({
+    mixins: [PaginationMixin],
     data: {
       list: [{ id: 1, name: 'mue', mott: 'easy miniapp' }]
     },
-    action: {
-      sayHello() {}
-    },
+    sayHello() {},
     getter: {
       hello: QL('helloQL', [
         // data path

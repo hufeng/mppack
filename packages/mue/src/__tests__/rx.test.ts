@@ -1,16 +1,19 @@
 import { MockConsole } from 'mock-jest-console';
-import RxFactory from '../rx';
+import Reactive from '../rx';
 import { QL } from '../rx/ql';
 import { RL } from '../rx/rl';
 
 test('test bigQuery', () => {
   const mockLog = new MockConsole();
-  const mue = new RxFactory();
-  mue.dev = true;
-  mue.data = {
-    list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp' } }],
-    tabIndex: 0
-  };
+  const mue = new Reactive({
+    dev: true,
+    data: {
+      list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp' } }],
+      tabIndex: 0
+    },
+    getter: {},
+    effect: []
+  });
 
   //============================================================
   const tabQL = QL('tabQL', ['tabIndex', index => index]);
@@ -56,13 +59,6 @@ test('test bigQuery', () => {
 
 it('test parseRL', () => {
   const mockLog = new MockConsole();
-  const mue = new RxFactory();
-  mue.dev = true;
-  mue.data = {
-    list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp' } }],
-    tabIndex: 0
-  };
-
   const helloRL = RL('helloRL', [
     ['list', 0, 'user'],
     'tabIndex',
@@ -76,7 +72,16 @@ it('test parseRL', () => {
     }
   ]);
 
-  const helloRLHandle = mue._parseRL(helloRL);
+  const mue = new Reactive({
+    dev: true,
+    data: {
+      list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp' } }],
+      tabIndex: 0
+    },
+    effect: [helloRL]
+  });
+
+  const helloRLHandle = mue.parseRL(helloRL);
   mue.data = {
     list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp rl' } }],
     tabIndex: 1

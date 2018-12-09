@@ -2,11 +2,13 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "noUnusedLocals": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noImplicitReturns": true,
     "noUnusedParameters": false,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   }
 }

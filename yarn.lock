@@ -47,6 +47,11 @@
   resolved "http://registry.npm.taobao.org/@types/debug/download/@types/debug-0.0.31.tgz#bac8d8aab6a823e91deb7f79083b2a35fa638f33"
   integrity sha1-usjYqraoI+kd6395CDsqNfpjjzM=
 
+"@types/deep-equal@1.0.1":
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/@types/deep-equal/download/@types/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
+  integrity sha1-cc+rskfCK8wW1TYRH1DA7RJHawM=
+
 "@types/del@3.0.1":
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/@types/del/download/@types/del-3.0.1.tgz#4712da8c119873cbbf533ad8dbf1baac5940ac5d"
@@ -1530,6 +1535,11 @@ decompress@^4.0.0, decompress@^4.2.0:
     pify "^2.3.0"
     strip-dirs "^2.0.0"
 
+deep-equal@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/deep-equal/download/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
+  integrity sha1-9dJgKStmDghO/0zbyfCK0yR0SLU=
+
 deep-extend@^0.6.0:
   version "0.6.0"
   resolved "http://registry.npm.taobao.org/deep-extend/download/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
@@ -2878,11 +2888,6 @@ imagemin@^6.0.0:
     p-pipe "^1.1.0"
     pify "^3.0.0"
     replace-ext "^1.0.0"
-
-immer@^1.8.0:
-  version "1.8.0"
-  resolved "http://registry.npm.taobao.org/immer/download/immer-1.8.0.tgz#afa8393996a1f3f5255019e7d10c29d42dd95225"
-  integrity sha1-r6g5OZah8/UlUBnn0Qwp1C3ZUiU=
 
 import-lazy@^3.1.0:
   version "3.1.0"

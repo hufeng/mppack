@@ -12,6 +12,6 @@
   "author": "hufeng",
   "license": "MIT",
   "dependencies": {
-    "immer": "^1.8.0"
+    "deep-equal": "^1.0.1"
   }
 }
