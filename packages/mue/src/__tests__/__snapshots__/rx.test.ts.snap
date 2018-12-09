@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test bigQuery 1`] = `
+Array [
+  "=================ql#tabQL=====================",
+  "update:🔥",
+  "=================ql#helloQL=====================",
+  "update:🔥",
+  "=================ql#nestQL=====================",
+  "=================ql#tabQL=====================",
+  "cache:😆",
+  "update:🔥",
+]
+`;
+
+exports[`test parseRL 1`] = `
+Array [
+  "=================rl#helloRL=====================",
+  "changed:🔥",
+]
+`;

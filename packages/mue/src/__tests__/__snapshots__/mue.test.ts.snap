@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test mue 1`] = `
+Object {
+  "_cacheQL": Object {},
+  "data": Object {
+    "list": Array [
+      Object {
+        "id": 1,
+        "mott": "easy miniapp",
+        "name": "mue",
+      },
+    ],
+    "pageList": Array [],
+    "rx": Object {},
+  },
+  "dev": false,
+  "effect": Array [
+    RxLang {
+      "lang": Array [
+        Array [
+          "list",
+          0,
+          "name",
+        ],
+        [Function],
+      ],
+      "name": "helloRL",
+    },
+  ],
+  "fetchData": [Function],
+  "getter": Object {
+    "hello": QueryLang {
+      "id": 1,
+      "lang": Array [
+        Array [
+          "list",
+          0,
+        ],
+        [Function],
+      ],
+      "name": "helloQL",
+    },
+  },
+  "onPullDownRefresh": [Function],
+  "onReachBottom": [Function],
+  "pageNum": 0,
+  "pageSize": 20,
+  "refreshFetchData": [Function],
+  "sayHello": [Function],
+}
+`;

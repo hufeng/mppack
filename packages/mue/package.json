@@ -1,0 +1,17 @@
+{
+  "name": "mue",
+  "version": "1.0.0",
+  "description": "a simple mini program wrapper",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": [
+    "mini program",
+    "simple",
+    "reactive"
+  ],
+  "author": "hufeng",
+  "license": "MIT",
+  "dependencies": {
+    "deep-equal": "^1.0.1"
+  }
+}

@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "module": "commonjs",
-    "outDir": "./lib",
-    "noUnusedLocals": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noImplicitReturns": true,
     "noUnusedParameters": false,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
-    "experimentalDecorators": true
-  },
-  "exclude": ["node_modules", "example", "src/__tests__/**"],
-  "include": ["src/**/*.ts"]
+    "allowSyntheticDefaultImports": true
+  }
 }
