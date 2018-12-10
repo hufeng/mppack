@@ -7,7 +7,7 @@ export type TRxLangHandler = (...args: Array<any>) => void;
 export type TRxLang = Array<TPath | TRxLangHandler>;
 export type TPath = Array<string | number> | string;
 
-export interface IReactive {
+export interface IRxParams {
   dev?: boolean;
   data?: Object;
   getter?: {
@@ -75,4 +75,11 @@ export namespace mpapp {
     $page?: Object;
     $id?: number;
   }
+}
+
+declare global {
+  function App(props: mpapp.IAppProps): void;
+  function Page(prop: mpapp.IPageProps): void;
+  function getApp(): mpapp.IAppProps;
+  function Component<P, S>(prop: mpapp.IComponentProps<P, S>): void;
 }

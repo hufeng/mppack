@@ -47,11 +47,6 @@
   resolved "http://registry.npm.taobao.org/@types/debug/download/@types/debug-0.0.31.tgz#bac8d8aab6a823e91deb7f79083b2a35fa638f33"
   integrity sha1-usjYqraoI+kd6395CDsqNfpjjzM=
 
-"@types/deep-equal@1.0.1":
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/@types/deep-equal/download/@types/deep-equal-1.0.1.tgz#71cfabb247c22bcc16d536111f50c0ed12476b03"
-  integrity sha1-cc+rskfCK8wW1TYRH1DA7RJHawM=
-
 "@types/del@3.0.1":
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/@types/del/download/@types/del-3.0.1.tgz#4712da8c119873cbbf533ad8dbf1baac5940ac5d"
@@ -174,6 +169,18 @@
   version "23.3.10"
   resolved "http://registry.npm.taobao.org/@types/jest/download/@types/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
   integrity sha1-SJeXTMMXv5nU/mrx76FZV/qclN4=
+
+"@types/lodash.isequal@^4.5.3":
+  version "4.5.3"
+  resolved "http://registry.npm.taobao.org/@types/lodash.isequal/download/@types/lodash.isequal-4.5.3.tgz#b0d2747d3e76cc94da47ebd932c69a98c0ba61b4"
+  integrity sha1-sNJ0fT52zJTaR+vZMsaamMC6YbQ=
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.118"
+  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.118.tgz#247bab39bfcc6d910d4927c6e06cbc70ec376f27"
+  integrity sha1-JHurOb/MbZENSSfG4Gy8cOw3byc=
 
 "@types/minimatch@*":
   version "3.0.0"
@@ -1534,11 +1541,6 @@ decompress@^4.0.0, decompress@^4.2.0:
     make-dir "^1.0.0"
     pify "^2.3.0"
     strip-dirs "^2.0.0"
-
-deep-equal@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/deep-equal/download/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
-  integrity sha1-9dJgKStmDghO/0zbyfCK0yR0SLU=
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -4002,6 +4004,11 @@ lodash.flatten@^4.2.0:
   version "4.4.0"
   resolved "http://registry.npm.taobao.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
   integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "http://registry.npm.taobao.org/lodash.isequal/download/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.merge@^4.4.0:
   version "4.6.1"

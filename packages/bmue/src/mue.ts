@@ -1,7 +1,5 @@
-import Reactive from './rx';
+import Rx from './rx';
 import { mpapp } from './types';
-
-declare function Page(obj: Object): Object;
 
 /**
  * A simple factory function, let mini app development more compose and reactive
@@ -15,22 +13,7 @@ declare function Page(obj: Object): Object;
  */
 
 export default function Mue(page: mpapp.IPageProps) {
-  /**
-   * collect all mixin page data, and lifycycle method
-   * in order to merge all
-   */
-  const reducer = {
-    data: [],
-    onLoad: [],
-    onReady: [],
-    onShow: [],
-    onHide: [],
-    onUnload: [],
-    onPullDownRefresh: [],
-    onReachBottom: [],
-    onShareAppMessage: []
-  };
-
+  //destruct page
   const {
     dev = false,
     data = {},
@@ -47,6 +30,26 @@ export default function Mue(page: mpapp.IPageProps) {
     onShareAppMessage,
     ...others
   } = page;
+
+  if (dev) {
+    console.log('<--------------🚀bmue bootstrap🚀---------->');
+  }
+
+  /**
+   * collect all mixin page data, and lifycycle method
+   * in order to merge all
+   */
+  const reducer = {
+    data: [],
+    onLoad: [],
+    onReady: [],
+    onShow: [],
+    onHide: [],
+    onUnload: [],
+    onPullDownRefresh: [],
+    onReachBottom: [],
+    onShareAppMessage: []
+  };
 
   //merge reactive object
   let pageObj = {};
@@ -126,17 +129,60 @@ export default function Mue(page: mpapp.IPageProps) {
       method => method
     );
     if (list.length > 0) {
-      pageObj[lifecycle] = arg => list.forEach(v => v(arg));
+      pageObj[lifecycle] = function(arg) {
+        list.forEach(v => v.call(this, arg));
+      };
     }
   });
 
-  return Page({
-    ...pageObj,
-    ...new Reactive({
-      dev,
-      data: mergeData,
-      getter,
-      effect
-    })
+  const rx = new Rx({
+    dev,
+    data: mergeData,
+    getter,
+    effect
   });
+
+  pageObj = {
+    ...rx,
+    ...pageObj
+  };
+
+  pageObj['setState'] = function(arg) {
+    if (dev) {
+      console.groupCollapsed('================setState===================');
+      console.log('param:', arg);
+    }
+    //@ts-ignore
+    this.setData(arg, () => {
+      //computed ql
+      // @ts-ignore
+      const rx = this.computeQL(this.data);
+
+      if (dev) {
+        console.log('rx:', rx);
+      }
+
+      //@ts-ignore
+      this.setData({
+        rx: {
+          //@ts-ignore
+          ...this.data.rx,
+          ...rx
+        }
+      });
+
+      //compute effect
+      //@ts-ignore
+      this.effect.forEach(effect => {
+        //@ts-ignore
+        effect(this.data);
+      });
+
+      if (dev) {
+        console.groupEnd();
+      }
+    });
+  };
+
+  Page(pageObj);
 }

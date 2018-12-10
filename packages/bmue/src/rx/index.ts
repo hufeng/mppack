@@ -1,22 +1,20 @@
-import equal from 'deep-equal';
-import { IReactive, TRxLangHandler } from '../types';
+import isEqual from 'lodash.isequal';
+import { IRxParams, TRxLangHandler } from '../types';
 import { getPathVal } from '../util';
 import { QueryLang } from './ql';
 import { RxLang } from './rl';
 
 /**
- * Reactive
+ * design a simple reactive class
+ * from bigQuery, we can computed QL
+ * from computeRL, we can effect our side-effect
  */
-export default class Reactive {
-  constructor(params: IReactive) {
-    const { dev = false, data = {}, getter = {}, effect = [] } = params;
-
+export default class Rx {
+  constructor(params: IRxParams) {
+    const { dev = false, data = {}, getter = {}, effect = {} } = params;
     this.dev = dev;
-    //merge rxdata to data
-    this.data = data;
-    this.initRxData();
-
     this.getter = getter;
+    this.initData(data);
     this.effect = this.bindRL(effect);
   }
 
@@ -27,60 +25,50 @@ export default class Reactive {
   //record all side effect
   effect: Array<TRxLangHandler> = [];
   //record all ql
-  getter: { [key: string]: QueryLang } = {};
+  getter: { [key: string]: QueryLang } = Object.create({});
   //cache ql result
   _cacheQL = {} as { [key: number]: Array<any> };
 
   /**
-   * init rx data
+   * compute ql's value and merge to this.data
    */
-  initRxData = () => {
-    const rxData = this.computeQL();
-    //merge data and rxQL
+  initData = (data: Object) => {
+    const rxData = this.computeQL(data);
     this.data = {
-      ...this.data,
+      ...data,
       rx: {
         ...rxData
       }
     };
-  };
-
-  /**
-   * wrapper setData, more reactive ability
-   */
-  setState = arg => {
-    //@ts-ignore
-    this.setData(arg);
-    //computed ql
-    const rx = this.computeQL();
-    if (rx) {
-      //@ts-ignore
-      this.setData({ rx });
+    if (this.dev) {
+      console.log('初始化data:', this.data);
     }
-    //compute effect
-    this.effect.forEach(effect => effect());
   };
 
-  computeQL = () => {
-    let rx = null;
+  computeQL = (data: Object) => {
+    let rx = {};
     //compute each ql
     for (let qlName in this.getter) {
       if (this.getter.hasOwnProperty(qlName)) {
         const ql = this.getter[qlName];
-        const result = this.bigQuery(ql);
-        if (!equal(result, (this.data as any).rx[qlName])) {
-          rx[qlName] = result;
+        const value = this.bigQuery(data, ql);
+        if (!isEqual(value, (data as any).rx[qlName])) {
+          rx[qlName] = value;
         }
       }
     }
     return rx;
   };
 
-  bindRL(effect = []) {
-    return effect.map(e => e());
-  }
+  bindRL = (effect = {}) => {
+    const effects = [];
+    Object.keys(effect).forEach(key => {
+      effects.push(this.parseRL(this.data, effect[key]));
+    });
+    return effects;
+  };
 
-  bigQuery(ql: QueryLang) {
+  bigQuery(data, ql: QueryLang) {
     const { id, name, handler, deps } = ql.parse();
 
     if (this.dev) {
@@ -98,11 +86,11 @@ export default class Reactive {
       //suport ql nested ql
       let val = null;
       if (dep instanceof QueryLang) {
-        val = this.bigQuery(dep);
+        val = this.bigQuery(data, dep);
       } else {
-        val = getPathVal(this.data, dep);
+        val = getPathVal(data, dep);
       }
-      if (!equal(val, this._cacheQL[id][i])) {
+      if (!isEqual(val, this._cacheQL[id][i])) {
         isChanged = true;
         this._cacheQL[id][i] = val;
       }
@@ -131,30 +119,31 @@ export default class Reactive {
     }
   }
 
-  parseRL(rl: RxLang) {
+  parseRL = (data: Object, rl: RxLang) => {
     const cache = [];
     const { name, deps, handler } = rl.parse();
-    if (this.dev) {
-      console.groupCollapsed(
-        `=================rl#${name}=====================`
-      );
-    }
+
     for (let dep of deps) {
       cache.push(
         dep instanceof QueryLang
-          ? this.bigQuery(dep)
-          : getPathVal(this.data, dep)
+          ? this.bigQuery(data, dep)
+          : getPathVal(data, dep)
       );
     }
 
-    return () => {
+    return newData => {
+      if (this.dev) {
+        console.groupCollapsed(
+          `=================rl#${name}=====================`
+        );
+      }
       let isChanged = false;
       deps.forEach((dep, i) => {
         let pathVal =
           dep instanceof QueryLang
-            ? this.bigQuery(dep)
-            : getPathVal(this.data, dep);
-        if (!equal(pathVal, cache[i])) {
+            ? this.bigQuery(newData, dep)
+            : getPathVal(newData, dep);
+        if (!isEqual(pathVal, cache[i])) {
           cache[i] = pathVal;
           isChanged = true;
         }
@@ -162,16 +151,15 @@ export default class Reactive {
 
       if (isChanged) {
         if (this.dev) {
-          console.log('changed:🔥');
+          console.log(`${name}#changed:🔥`);
           console.groupEnd();
         }
         handler(...cache);
       } else {
         if (this.dev) {
-          console.log('cache:😆');
           console.groupEnd();
         }
       }
     };
-  }
+  };
 }

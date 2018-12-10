@@ -1,0 +1,5 @@
+<view>
+  <view>{{hello}}</view>
+  <view>{{rx.hello}}</view>
+  <view>{{rx.id}}</view>
+</view>
