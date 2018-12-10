@@ -1,9 +1,11 @@
-import mue from 'bmue/lib/mue';
-import { QL } from 'bmue/lib/rx/ql';
-import { RL } from 'bmue/lib/rx/rl';
+import { Mue } from 'bmue';
+import * as ql from './ql';
+import * as rl from './rl';
 
-mue({
+Mue({
   dev: true,
+  getter: ql,
+  effect: rl,
   data: {
     hello: 'hello mppack',
     list: [
@@ -12,18 +14,10 @@ mue({
       }
     ]
   },
-
   onLoad() {
     this.setState({
       hello: 'hello mppack next',
       'list.0.id': 1
     });
-  },
-
-  getter: {
-    tip: QL('tipQL', ['hello', hello => hello + '!!']),
-    id: QL('idQL', [['list', 0, 'id'], id => id + '!'])
-  },
-
-  effect: [RL('helloRL', ['hello', hello => console.log('--->', hello)])]
+  }
 });

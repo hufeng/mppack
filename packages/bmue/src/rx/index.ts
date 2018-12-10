@@ -11,7 +11,7 @@ import { RxLang } from './rl';
  */
 export default class Rx {
   constructor(params: IRxParams) {
-    const { dev = false, data = {}, getter = {}, effect = [] } = params;
+    const { dev = false, data = {}, getter = {}, effect = {} } = params;
     this.dev = dev;
     this.getter = getter;
     this.initData(data);
@@ -60,8 +60,12 @@ export default class Rx {
     return rx;
   };
 
-  bindRL = (effect = []) => {
-    return effect.map(e => this.parseRL(this.data, e));
+  bindRL = (effect = {}) => {
+    const effects = [];
+    Object.keys(effect).forEach(key => {
+      effects.push(this.parseRL(this.data, effect[key]));
+    });
+    return effects;
   };
 
   bigQuery(data, ql: QueryLang) {
