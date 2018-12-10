@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./lib/typings/"
+    "declarationDir": "./lib/typings"
   },
   "exclude": ["src/__tests__/**"]
 }

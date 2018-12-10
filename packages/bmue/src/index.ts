@@ -1,11 +1,13 @@
-import Mixin from './mixin';
+import mixin from './mixin';
 import Mue from './mue';
 import { QL } from './rx/ql';
 import { RL } from './rx/rl';
+import * as types from './types';
 
 export default {
-  Mixin,
+  mixin,
   QL,
   RL,
-  Mue
+  Mue,
+  types
 };

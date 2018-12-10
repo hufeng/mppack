@@ -1,9 +1,9 @@
 {
-  "name": "mue",
+  "name": "bmue",
   "version": "1.0.0",
   "description": "a simple mini program wrapper",
   "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "types": "./lib/typings/index.d.ts",
   "keywords": [
     "mini program",
     "simple",
@@ -12,6 +12,6 @@
   "author": "hufeng",
   "license": "MIT",
   "dependencies": {
-    "deep-equal": "^1.0.1"
+    "lodash.isequal": "^4.5.0"
   }
 }
