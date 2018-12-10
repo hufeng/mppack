@@ -1,4 +1,5 @@
 import debug from 'debug';
+import flog from 'fancy-log';
 import gulp from 'gulp';
 import ts from 'gulp-typescript';
 import config from '../config';
@@ -15,5 +16,6 @@ export const typescript = () => {
     .pipe(changed())
     .pipe(log({ prefix: 'ts', extName: '.js' }))
     .pipe(tsProject())
+    .on('error', () => flog.error('Failed during typescript compilation'))
     .pipe(gulp.dest(output));
 };
