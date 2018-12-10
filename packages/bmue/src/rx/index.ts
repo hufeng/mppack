@@ -1,13 +1,13 @@
 import isEqual from 'lodash.isequal';
 import { IRxParams, TRxLangHandler } from '../types';
 import { getPathVal } from '../util';
+import { ELang } from './el';
 import { QueryLang } from './ql';
-import { RxLang } from './rl';
 
 /**
  * design a simple reactive class
  * from bigQuery, we can computed QL
- * from computeRL, we can effect our side-effect
+ * from computeEL, we can effect our side-effect
  */
 export default class Rx {
   constructor(params: IRxParams) {
@@ -15,7 +15,7 @@ export default class Rx {
     this.dev = dev;
     this.getter = getter;
     this.initData(data);
-    this.effect = this.bindRL(effect);
+    this.effect = this.processEL(effect);
   }
 
   //merge all data
@@ -60,10 +60,10 @@ export default class Rx {
     return rx;
   };
 
-  bindRL = (effect = {}) => {
+  processEL = (effect = {}) => {
     const effects = [];
     Object.keys(effect).forEach(key => {
-      effects.push(this.parseRL(this.data, effect[key]));
+      effects.push(this.parseEL(this.data, effect[key]));
     });
     return effects;
   };
@@ -119,9 +119,9 @@ export default class Rx {
     }
   }
 
-  parseRL = (data: Object, rl: RxLang) => {
+  parseEL = (data: Object, el: ELang) => {
     const cache = [];
-    const { name, deps, handler } = rl.parse();
+    const { name, deps, handler } = el.parse();
 
     for (let dep of deps) {
       cache.push(
@@ -134,7 +134,7 @@ export default class Rx {
     return newData => {
       if (this.dev) {
         console.groupCollapsed(
-          `=================rl#${name}=====================`
+          `=================el#${name}=====================`
         );
       }
       let isChanged = false;
