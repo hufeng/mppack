@@ -1,5 +1,6 @@
 import debug from 'debug';
 import flog from 'fancy-log';
+import { existsSync } from 'fs';
 import gulp from 'gulp';
 import ts from 'gulp-typescript';
 import config from '../config';
@@ -10,7 +11,25 @@ const debugLog = debug('mppack:task:ts');
 export const typescript = () => {
   const { typescript, output } = config;
   debugLog('outout: %s, typescript: %j', output, typescript);
-  const tsProject = ts.createProject('tsconfig.json');
+
+  const isExist = existsSync('tsconfig.json');
+
+  let tsProject = isExist
+    ? ts.createProject('tsconfig.json')
+    : ts.createProject({
+        target: 'es2015',
+        module: 'es2015',
+        strict: true,
+        noImplicitAny: false,
+        strictNullChecks: false,
+        noUnusedLocals: true,
+        noUnusedParameters: true,
+        noImplicitReturns: true,
+        noFallthroughCasesInSwitch: true,
+        moduleResolution: 'node',
+        esModuleInterop: true
+      });
+
   return gulp
     .src(typescript)
     .pipe(changed())
