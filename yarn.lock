@@ -2642,7 +2642,7 @@ gulp-rename@^1.4.0:
   resolved "http://registry.npm.taobao.org/gulp-rename/download/gulp-rename-1.4.0.tgz#de1c718e7c4095ae861f7296ef4f3248648240bd"
   integrity sha1-3hxxjnxAla6GH3KW708ySGSCQL0=
 
-gulp-typescript@*:
+gulp-typescript@*, gulp-typescript@^5.0.0:
   version "5.0.0"
   resolved "http://registry.npm.taobao.org/gulp-typescript/download/gulp-typescript-5.0.0.tgz#aac065a88bca95d1f960d4934a307feed2d091f8"
   integrity sha1-qsBlqIvKldH5YNSTSjB/7tLQkfg=

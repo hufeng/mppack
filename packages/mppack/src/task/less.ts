@@ -1,4 +1,5 @@
 import debug from 'debug';
+import flog from 'fancy-log';
 import gulp from 'gulp';
 import gless from 'gulp-less';
 import rename from 'gulp-rename';
@@ -24,6 +25,7 @@ export const less = () => {
     .pipe(changed())
     .pipe(log({ prefix: 'less', extName: extname }))
     .pipe(gless())
+    .on('error', () => flog.error('Failed during typescript compilation'))
     .pipe(rename({ extname }))
     .pipe(gulp.dest(output));
 };

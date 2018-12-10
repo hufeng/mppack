@@ -1,6 +1,7 @@
 import { Mue } from 'bmue';
 import * as ql from './ql';
 import * as rl from './rl';
+import { fetchData } from './webapi';
 
 Mue({
   dev: true,
@@ -14,9 +15,10 @@ Mue({
       }
     ]
   },
-  onLoad() {
+  async onLoad() {
+    const data = await fetchData();
     this.setState({
-      hello: 'hello mppack next',
+      hello: data,
       'list.0.id': 1
     });
   }
