@@ -1,12 +1,12 @@
 import { Mue } from 'bmue';
+import * as el from './el';
 import * as ql from './ql';
-import * as rl from './rl';
 import { fetchData } from './webapi';
 
 Mue({
   dev: true,
   getter: ql,
-  effect: rl,
+  effect: el,
   data: {
     hello: 'hello mppack',
     list: [

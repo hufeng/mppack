@@ -1,6 +1,6 @@
 import { TPath, TRxLang, TRxLangHandler } from '../types';
 
-export class RxLang {
+export class ELang {
   constructor(name: string, lang: TRxLang) {
     this.name = name;
     this.lang = lang;
@@ -22,4 +22,4 @@ export class RxLang {
 }
 
 //Factory method
-export const RL = (name: string, lang: TRxLang) => new RxLang(name, lang);
+export const EL = (name: string, lang: TRxLang) => new ELang(name, lang);

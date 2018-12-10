@@ -1,5 +1,5 @@
+import { ELang } from './rx/el';
 import { QueryLang } from './rx/ql';
-import { RxLang } from './rx/rl';
 
 export type TQueryLangHandler = (...arg: Array<any>) => any;
 export type TQueryLang = Array<TPath | TQueryLangHandler | QueryLang>;
@@ -13,7 +13,7 @@ export interface IRxParams {
   getter?: {
     [name: string]: QueryLang;
   };
-  effect?: Array<RxLang>;
+  effect?: Array<ELang>;
 }
 
 export namespace mpapp {
