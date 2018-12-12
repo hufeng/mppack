@@ -2,7 +2,19 @@
 
 exports[`test mue 1`] = `
 Object {
-  "_cacheQL": Object {},
+  "$spliceData": undefined,
+  "_cacheQL": Object {
+    "1": Array [
+      Object {
+        "id": 1,
+        "mott": "easy miniapp",
+        "name": "mue",
+      },
+      undefined,
+      "mue-easy miniapp",
+    ],
+  },
+  "computeQL": [Function],
   "data": Object {
     "list": Array [
       Object {
@@ -12,21 +24,13 @@ Object {
       },
     ],
     "pageList": Array [],
-    "rx": Object {},
+    "rx": Object {
+      "hello": "mue-easy miniapp",
+    },
   },
   "dev": false,
   "effect": Array [
-    RxLang {
-      "lang": Array [
-        Array [
-          "list",
-          0,
-          "name",
-        ],
-        [Function],
-      ],
-      "name": "helloRL",
-    },
+    [Function],
   ],
   "fetchData": [Function],
   "getter": Object {
@@ -42,11 +46,17 @@ Object {
       "name": "helloQL",
     },
   },
+  "initData": [Function],
   "onPullDownRefresh": [Function],
   "onReachBottom": [Function],
   "pageNum": 0,
   "pageSize": 20,
+  "parseEL": [Function],
+  "processEL": [Function],
   "refreshFetchData": [Function],
   "sayHello": [Function],
+  "setData": undefined,
+  "setState": [Function],
+  "spliceState": [Function],
 }
 `;

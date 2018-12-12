@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test setData and spliceData 1`] = `
+"
+//test mixin
+const TabMixin = Mixin({
+  data: {
+    tabIndex: 0
+  },
+
+  onHandleTabIndex(tabIndex) {
+    this.setState({
+      tabIndex
+    });
+    this.spliceState({});
+  }
+});
+
+//test plain javascript object
+const pojo = {
+  data: {
+    test: 0
+  },
+
+  sayHello() {
+    this.setState({});
+    this.spliceState({});
+  }
+};
+
+//test mue object
+Mue({
+  data: {
+    list: []
+  },
+
+  sayHello() {
+    this.setState({});
+    this.spliceState({});
+  }
+});"
+`;

@@ -56,6 +56,10 @@ export default function Mue(page: mpapp.IPageProps) {
 
   //reduce mixin
   for (let mixin of mixins) {
+    //mock mixn setData, $spliceData
+    mixin['setData'] = pageObj['setState'];
+    mixin['$spliceData'] = pageObj['spliceState'];
+
     const {
       data = {},
       onLoad,
@@ -185,5 +189,43 @@ export default function Mue(page: mpapp.IPageProps) {
     });
   };
 
-  Page(pageObj);
+  pageObj['spliceState'] = function(arg) {
+    if (dev) {
+      console.groupCollapsed('================spliceState===================');
+      console.log('param:', arg);
+    }
+    //@ts-ignore
+    this.$spliceData(arg, () => {
+      //computed ql
+      // @ts-ignore
+      const rx = this.computeQL(this.data);
+
+      if (dev) {
+        console.log('rx:', rx);
+      }
+
+      //@ts-ignore
+      this.setData({
+        rx: {
+          //@ts-ignore
+          ...this.data.rx,
+          ...rx
+        }
+      });
+
+      //compute effect
+      //@ts-ignore
+      this.effect.forEach(effect => {
+        //@ts-ignore
+        // effect(this.data);
+        effect.apply(this, [this.data]);
+      });
+
+      if (dev) {
+        console.groupEnd();
+      }
+    });
+  };
+
+  return Page(pageObj);
 }

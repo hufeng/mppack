@@ -4,7 +4,7 @@ import { join } from 'path';
 import through2 from 'through2';
 import config from '../config';
 import { ILogParam } from '../types';
-import { changeFileExtname } from '../util.';
+import { changeFileExtname } from '../util';
 
 const debugLog = debug('mppack:plugin:log');
 

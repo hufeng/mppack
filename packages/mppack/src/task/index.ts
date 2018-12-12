@@ -3,7 +3,7 @@ import ylog from 'fancy-log';
 import gulp from 'gulp';
 import path from 'path';
 import config from '../config';
-import { changeFileExtname, getMpCssExtname } from '../util.';
+import { changeFileExtname, getMpCssExtname } from '../util';
 import { acss } from './acss';
 import { axml } from './axml';
 import { clean } from './clean';

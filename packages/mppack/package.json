@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "mpapp's webpack",
   "main": "./lib/index.js",
-  "types": "./lib/typings/index.d.ts",
   "keywords": [
     "mpapp's webpack"
   ],
@@ -22,6 +21,11 @@
     "gulp-imagemin": "^5.0.3",
     "gulp-less": "^4.0.1",
     "gulp-rename": "^1.4.0",
-    "through2": "^3.0.0"
+    "through2": "^3.0.0",
+    "gulp-babel": "^8.0.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "babel-plugin-mpapp-set-data": "^0.0.1"
   }
 }
