@@ -3,9 +3,13 @@ export class Configuration {
   watch = false;
   verbose = false;
   target: 'eapp' | 'wxapp' = 'eapp';
+  devDependencies = [];
 
   get excludes() {
-    return [`!${this.output}/**`];
+    const nodeModules = this.devDependencies.map(
+      dep => `!node_modules/${dep}/**`
+    );
+    return [`!${this.output}/**`, ...nodeModules];
   }
 
   get javascript() {

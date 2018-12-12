@@ -56,10 +56,6 @@ export default function Mue(page: mpapp.IPageProps) {
 
   //reduce mixin
   for (let mixin of mixins) {
-    //mock mixn setData, $spliceData
-    mixin['setData'] = pageObj['setState'];
-    mixin['$spliceData'] = pageObj['spliceState'];
-
     const {
       data = {},
       onLoad,

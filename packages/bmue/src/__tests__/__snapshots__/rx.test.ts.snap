@@ -2,6 +2,7 @@
 
 exports[`test bigQuery 1`] = `
 Array [
+  "初始化data:",
   "=================ql#tabQL=====================",
   "update:🔥",
   "=================ql#helloQL=====================",
@@ -15,7 +16,8 @@ Array [
 
 exports[`test parseRL 1`] = `
 Array [
-  "=================rl#helloRL=====================",
-  "changed:🔥",
+  "初始化data:",
+  "=================el#helloRL=====================",
+  "helloRL#changed:🔥",
 ]
 `;

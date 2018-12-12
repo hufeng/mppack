@@ -2,7 +2,6 @@
 
 exports[`test mue 1`] = `
 Object {
-  "$spliceData": undefined,
   "_cacheQL": Object {
     "1": Array [
       Object {
@@ -55,7 +54,6 @@ Object {
   "processEL": [Function],
   "refreshFetchData": [Function],
   "sayHello": [Function],
-  "setData": undefined,
   "setState": [Function],
   "spliceState": [Function],
 }

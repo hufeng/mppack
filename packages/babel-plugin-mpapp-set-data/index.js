@@ -4,19 +4,28 @@ module.exports = function(babel) {
   return {
     visitor: {
       CallExpression(path) {
-        //get callee
         const {
           node: { callee }
         } = path;
-        //this.setData() => this.setState()
-        //this.$spliceData() => this.spliceState()
-        if (t.isMemberExpression(path.node.callee)) {
-          if (callee.property.name === 'setData') {
-            callee.property.name = 'setState';
-          } else if (callee.property.name === '$spliceData') {
-            callee.property.name = 'spliceState';
-          }
+        const fnName = callee.name;
+        if (fnName !== 'Mixin' && fnName !== 'Mue') {
+          return;
         }
+        // 遍历所有的子元素
+        path.traverse({
+          CallExpression(path) {
+            const {
+              node: { callee }
+            } = path;
+            if (t.isMemberExpression(callee)) {
+              if (callee.property.name === 'setData') {
+                callee.property.name = 'setState';
+              } else if (callee.property.name === '$spliceData') {
+                callee.property.name = 'spliceState';
+              }
+            }
+          }
+        });
       }
     }
   };

@@ -23,8 +23,8 @@ const pojo = {
   },
 
   sayHello() {
-    this.setState({});
-    this.spliceState({});
+    this.setData({});
+    this.$spliceData({});
   }
 };
 
