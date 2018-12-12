@@ -175,7 +175,8 @@ export default function Mue(page: mpapp.IPageProps) {
       //@ts-ignore
       this.effect.forEach(effect => {
         //@ts-ignore
-        effect(this.data);
+        // effect(this.data);
+        effect.apply(this, [this.data]);
       });
 
       if (dev) {
