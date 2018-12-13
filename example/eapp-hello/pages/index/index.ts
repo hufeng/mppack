@@ -17,7 +17,8 @@ Mue({
   },
   async onLoad() {
     const data = await fetchData();
-    this.setState({
+    //@ts-ignore
+    this.setData({
       hello: data,
       'list.0.id': 1
     });

@@ -68,7 +68,7 @@ export default class Rx {
     return effects;
   };
 
-  bigQuery(data, ql: QueryLang) {
+  bigQuery(data: Object, ql: QueryLang) {
     const { id, name, handler, deps } = ql.parse();
 
     if (this.dev) {
@@ -131,7 +131,7 @@ export default class Rx {
       );
     }
 
-    return newData => {
+    return (newData: Object) => {
       if (this.dev) {
         console.groupCollapsed(
           `=================el#${name}=====================`
