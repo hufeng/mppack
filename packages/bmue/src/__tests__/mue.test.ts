@@ -1,6 +1,6 @@
 import Mue from '../mue';
+import { EL } from '../rx/el';
 import { QL } from '../rx/ql';
-import { RL } from '../rx/rl';
 
 //mock miniapp Page object
 window['Page'] = jest.fn(obj => obj);
@@ -36,7 +36,7 @@ it('test mue', () => {
       ])
     },
     effect: [
-      RL('helloRL', [
+      EL('helloRL', [
         //data path
         ['list', 0, 'name'],
         name => console.log(name)

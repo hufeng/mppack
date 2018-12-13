@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 import program from 'commander';
 import { say } from 'cowsay';
+import debug from 'debug';
 import log from 'fancy-log';
 import fs from 'fs';
-import path from 'path';
+import path, { join } from 'path';
 import util from 'util';
 import config from './config';
 import { start } from './task';
+import { getDependencies } from './util';
 const version = require('../package.json').version;
 const isFileExist = util.promisify(fs.exists);
+const rootDir = process.cwd();
+const debugLog = debug('mppack:cli');
 
 program
   .version(version)
@@ -18,6 +22,10 @@ program
   .option('-w, --watch', 'watch mode')
   .option('-c, --config [file]', 'specify a config file')
   .option('-t, --target [wxapp|eapp]', 'specify a platform target')
+  .option(
+    '-m, --module [offline|online]',
+    'offline copy node_modules, online npm install'
+  )
   .parse(process.argv);
 
 //main
@@ -50,20 +58,28 @@ async function parseOption() {
   config.output = program.output || 'build';
   config.watch = program.watch || false;
   config.verbose = program.verbose || false;
+  config.module = program.module || 'offline';
 
   const isNotUndefined = (val: any) => typeof val !== 'undefined';
-  const configFile = program.config || 'mppack.config.js';
-
+  const configFile = program.config || path.join(rootDir, 'mppack.config.js');
   if (await isFileExist(configFile)) {
     log(`read config file: ${configFile}`);
     const cfg = require(path.join(__dirname, configFile));
     isNotUndefined(cfg.output) && (config.output = config.output);
     isNotUndefined(cfg.verbose) && (config.verbose = config.verbose);
     isNotUndefined(cfg.watch) && (config.watch = config.watch);
+  } else {
+    debugLog('no config file: %s', configFile);
   }
+
+  //检查依赖
+  const deps = await getDependencies(join(rootDir, 'package.json'));
+  debugLog('allDeps: %o', deps);
+  config.dependencies = deps;
 
   log(`当前mppack版本 => ${version}`);
   log(`输出目录 => ${config.output}`);
   log(`watch模式 => ${config.watch}`);
   log(`verbose模式 => ${config.verbose}`);
+  log(`module模式=> ${config.module}`);
 }

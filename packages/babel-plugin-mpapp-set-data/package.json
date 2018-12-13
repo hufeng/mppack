@@ -1,0 +1,13 @@
+{
+  "name": "babel-plugin-mpapp-set-data",
+  "version": "0.0.1",
+  "description": "auto change mpapp's setData to setState",
+  "main": "index.js",
+  "keywords": [
+    "mpapp",
+    "setData",
+    "setState"
+  ],
+  "author": "hufeng",
+  "license": "MIT"
+}

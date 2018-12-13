@@ -4,7 +4,7 @@ import rename from 'gulp-rename';
 import config from '../config';
 import { changed } from '../plugin/changed';
 import { log } from '../plugin/log';
-import { getMpCssExtname } from '../util.';
+import { getMpCssExtname } from '../util';
 const debugLog = debug('mppack:task:css');
 
 export const css = () => {

@@ -3,7 +3,7 @@ import ylog from 'fancy-log';
 import gulp from 'gulp';
 import path from 'path';
 import config from '../config';
-import { changeFileExtname, getMpCssExtname } from '../util.';
+import { changeFileExtname, getMpCssExtname } from '../util';
 import { acss } from './acss';
 import { axml } from './axml';
 import { clean } from './clean';
@@ -12,6 +12,7 @@ import { image } from './image';
 import { javascript } from './js';
 import { json } from './json';
 import { less } from './less';
+import { nodeModules } from './node-modules';
 import { typescript } from './typescript';
 import { wxml } from './wxml';
 import { wxss } from './wxss';
@@ -58,7 +59,8 @@ export const build = gulp.series(
     wxss,
     acss,
     axml,
-    wxml
+    wxml,
+    nodeModules
   )
 );
 

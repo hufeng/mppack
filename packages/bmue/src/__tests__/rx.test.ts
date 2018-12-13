@@ -1,7 +1,7 @@
 import { MockConsole } from 'mock-jest-console';
 import Reactive from '../rx';
+import { EL } from '../rx/el';
 import { QL } from '../rx/ql';
-import { RL } from '../rx/rl';
 
 test('test bigQuery', () => {
   const mockLog = new MockConsole();
@@ -17,7 +17,7 @@ test('test bigQuery', () => {
 
   //============================================================
   const tabQL = QL('tabQL', ['tabIndex', index => index]);
-  const tabResult = mue.bigQuery(tabQL);
+  const tabResult = mue.bigQuery(mue.data, tabQL);
   expect(tabResult).toEqual(0);
 
   const helloQL = QL('helloQL', [
@@ -30,7 +30,7 @@ test('test bigQuery', () => {
   ]);
 
   //============================================================
-  const result = mue.bigQuery(helloQL);
+  const result = mue.bigQuery(mue.data, helloQL);
   expect(result).toEqual({
     id: 1,
     name: 'mue',
@@ -47,7 +47,7 @@ test('test bigQuery', () => {
       tabIndex
     })
   ]);
-  const nestResult = mue.bigQuery(nestQL);
+  const nestResult = mue.bigQuery(mue.data, nestQL);
   expect(nestResult).toEqual({
     id: 1,
     name: 'mue',
@@ -59,7 +59,7 @@ test('test bigQuery', () => {
 
 it('test parseRL', () => {
   const mockLog = new MockConsole();
-  const helloRL = RL('helloRL', [
+  const helloRL = EL('helloRL', [
     ['list', 0, 'user'],
     'tabIndex',
     (user, index) => {
@@ -81,11 +81,11 @@ it('test parseRL', () => {
     effect: [helloRL]
   });
 
-  const helloRLHandle = mue.parseRL(helloRL);
+  const helloRLHandle = mue.parseEL(mue.data, helloRL);
   mue.data = {
     list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp rl' } }],
     tabIndex: 1
   };
-  helloRLHandle();
+  helloRLHandle(mue.data);
   expect(mockLog.logs).toMatchSnapshot();
 });

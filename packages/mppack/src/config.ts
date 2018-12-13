@@ -3,9 +3,11 @@ export class Configuration {
   watch = false;
   verbose = false;
   target: 'eapp' | 'wxapp' = 'eapp';
+  dependencies = [];
+  module = 'offline';
 
   get excludes() {
-    return [`!${this.output}/**`];
+    return [`!${this.output}/**`, '!node_modules/**'];
   }
 
   get javascript() {
@@ -46,6 +48,10 @@ export class Configuration {
 
   get wxml() {
     return ['**/*.wxml', ...this.excludes];
+  }
+
+  get node_modules() {
+    return this.dependencies.map(dep => `node_modules/${dep}/**`);
   }
 }
 
