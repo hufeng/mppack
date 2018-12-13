@@ -3,13 +3,10 @@ export class Configuration {
   watch = false;
   verbose = false;
   target: 'eapp' | 'wxapp' = 'eapp';
-  devDependencies = [];
+  dependencies = new Set([]);
 
   get excludes() {
-    const nodeModules = this.devDependencies.map(
-      dep => `!node_modules/${dep}/**`
-    );
-    return [`!${this.output}/**`, ...nodeModules];
+    return [`!${this.output}/**`, '!node_modules/**'];
   }
 
   get javascript() {

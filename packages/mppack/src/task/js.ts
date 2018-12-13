@@ -17,8 +17,18 @@ export const javascript = () => {
     .pipe(log({ prefix: 'js' }))
     .pipe(
       babel({
-        // presets: ['@babel/env', '@babel/preset-typescript'],
-        // plugins: ['mpapp-set-data']
+        presets: [
+          [
+            '@babel/env',
+            {
+              targets: {
+                esmodules: true
+              }
+            }
+          ],
+          '@babel/preset-typescript'
+        ],
+        plugins: ['mpapp-set-data']
       })
     )
     .on('error', (err: Error) =>

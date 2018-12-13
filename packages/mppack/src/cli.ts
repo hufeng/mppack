@@ -66,13 +66,6 @@ async function parseOption() {
     debugLog('no config file: %s', configFile);
   }
 
-  const projPackageJSON = path.join(rootDir, 'package.json');
-  debugLog(`current project package.json %s`, projPackageJSON);
-
-  if (await isFileExist(projPackageJSON)) {
-    const { devDependencies = {} } = require(projPackageJSON);
-    config.devDependencies = Object.keys(devDependencies);
-  }
   log(`当前mppack版本 => ${version}`);
   log(`输出目录 => ${config.output}`);
   log(`watch模式 => ${config.watch}`);

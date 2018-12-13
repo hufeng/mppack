@@ -12,6 +12,7 @@ import { image } from './image';
 import { javascript } from './js';
 import { json } from './json';
 import { less } from './less';
+import { nodeModules } from './node-modules';
 import { typescript } from './typescript';
 import { wxml } from './wxml';
 import { wxss } from './wxss';
@@ -58,7 +59,8 @@ export const build = gulp.series(
     wxss,
     acss,
     axml,
-    wxml
+    wxml,
+    nodeModules
   )
 );
 
