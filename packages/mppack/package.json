@@ -1,6 +1,6 @@
 {
   "name": "mppack",
-  "version": "0.0.1-alpha1",
+  "version": "0.0.1-alpha2",
   "description": "mpapp's webpack",
   "main": "./lib/index.js",
   "keywords": [
