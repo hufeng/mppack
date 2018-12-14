@@ -59,6 +59,7 @@ async function parseOption() {
   config.watch = program.watch || false;
   config.verbose = program.verbose || false;
   config.module = program.module || 'offline';
+  config.target = program.target || 'eapp';
 
   const isNotUndefined = (val: any) => typeof val !== 'undefined';
   const configFile = program.config || path.join(rootDir, 'mppack.config.js');
@@ -68,18 +69,28 @@ async function parseOption() {
     isNotUndefined(cfg.output) && (config.output = config.output);
     isNotUndefined(cfg.verbose) && (config.verbose = config.verbose);
     isNotUndefined(cfg.watch) && (config.watch = config.watch);
+    isNotUndefined(cfg.target) && (config.target = config.target);
   } else {
     debugLog('no config file: %s', configFile);
   }
-
-  //检查依赖
-  const deps = await getDependencies(join(rootDir, 'package.json'));
-  debugLog('allDeps: %o', deps);
-  config.dependencies = deps;
+  const rootPkgJson = join(rootDir, 'package.json');
+  const isRootPkgJSONExists = await isFileExist(rootPkgJson);
+  if (isRootPkgJSONExists) {
+    //检查依赖
+    const deps = await getDependencies(rootPkgJson);
+    debugLog('allDeps: %o', deps);
+    config.dependencies = deps;
+  } else {
+    config.packagejson = false;
+  }
 
   log(`当前mppack版本 => ${version}`);
   log(`输出目录 => ${config.output}`);
   log(`watch模式 => ${config.watch}`);
   log(`verbose模式 => ${config.verbose}`);
-  log(`module模式=> ${config.module}`);
+  if (!config.packagejson) {
+    log('未扫描到package.json');
+  } else {
+    log(`module模式=> ${config.module}`);
+  }
 }

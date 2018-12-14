@@ -32,7 +32,7 @@ export default function Mue(page: mpapp.IPageProps) {
   } = page;
 
   if (dev) {
-    console.log('<--------------🚀bmue bootstrap🚀---------->');
+    console.log('=================🚀bmue bootstrap🚀=================');
   }
 
   /**

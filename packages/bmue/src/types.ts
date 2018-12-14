@@ -44,7 +44,7 @@ export namespace mpapp {
     onPullDownRefresh?: () => void;
     onReachBottom?: () => void;
     onShareAppMessage?: () => void;
-    setData?: (path: Object | string, val: any) => void;
+    setData?: (data: Object, val?: any) => void;
     $spliceData?: (
       start: number,
       deleteCount: number,

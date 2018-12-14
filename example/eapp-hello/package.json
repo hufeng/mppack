@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "bmue": "file://../../packages/bmue"
+    "bmue": "^0.0.1-alpha1"
+  },
+  "devDependencies": {
+    "mppack": "^0.0.1-alpha2"
   }
 }

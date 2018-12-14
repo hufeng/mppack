@@ -1,6 +1,6 @@
 {
   "name": "bmue",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha1",
   "description": "a simple mini program wrapper",
   "main": "./lib/index.js",
   "types": "./lib/typings/index.d.ts",

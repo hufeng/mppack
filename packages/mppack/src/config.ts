@@ -5,6 +5,7 @@ export class Configuration {
   target: 'eapp' | 'wxapp' = 'eapp';
   dependencies = [];
   module = 'offline';
+  packagejson = true;
 
   get excludes() {
     return [`!${this.output}/**`, '!node_modules/**'];
