@@ -59,11 +59,11 @@ export const noNodeModules = (cb: Function) => {
 };
 
 export const nodeModules = (cb: Function) => {
-  if (config.packagejson) {
+  if (!config.packagejson || config.dependencies.length === 0) {
+    return noNodeModules(cb);
+  } else {
     return config.module === 'offline'
       ? nodeModulesOffline()
       : nodeModulesOnline(cb);
-  } else {
-    return noNodeModules(cb);
   }
 };
