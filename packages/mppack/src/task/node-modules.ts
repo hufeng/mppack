@@ -54,8 +54,16 @@ export const nodeModulesOffline = () => {
     .pipe(gulp.dest(output));
 };
 
+export const noNodeModules = (cb: Function) => {
+  cb();
+};
+
 export const nodeModules = (cb: Function) => {
-  return config.module === 'offline'
-    ? nodeModulesOffline()
-    : nodeModulesOnline(cb);
+  if (config.packagejson) {
+    return config.module === 'offline'
+      ? nodeModulesOffline()
+      : nodeModulesOnline(cb);
+  } else {
+    return noNodeModules(cb);
+  }
 };

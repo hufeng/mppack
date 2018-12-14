@@ -71,15 +71,24 @@ async function parseOption() {
   } else {
     debugLog('no config file: %s', configFile);
   }
-
-  //检查依赖
-  const deps = await getDependencies(join(rootDir, 'package.json'));
-  debugLog('allDeps: %o', deps);
-  config.dependencies = deps;
+  const rootPkgJson = join(rootDir, 'package.json');
+  const isRootPkgJSONExists = await isFileExist(rootPkgJson);
+  if (isRootPkgJSONExists) {
+    //检查依赖
+    const deps = await getDependencies(rootPkgJson);
+    debugLog('allDeps: %o', deps);
+    config.dependencies = deps;
+  } else {
+    config.packagejson = false;
+  }
 
   log(`当前mppack版本 => ${version}`);
   log(`输出目录 => ${config.output}`);
   log(`watch模式 => ${config.watch}`);
   log(`verbose模式 => ${config.verbose}`);
-  log(`module模式=> ${config.module}`);
+  if (!config.packagejson) {
+    log('未扫描到package.json');
+  } else {
+    log(`module模式=> ${config.module}`);
+  }
 }
