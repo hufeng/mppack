@@ -59,6 +59,7 @@ async function parseOption() {
   config.watch = program.watch || false;
   config.verbose = program.verbose || false;
   config.module = program.module || 'offline';
+  config.target = program.target || 'eapp';
 
   const isNotUndefined = (val: any) => typeof val !== 'undefined';
   const configFile = program.config || path.join(rootDir, 'mppack.config.js');
@@ -68,6 +69,7 @@ async function parseOption() {
     isNotUndefined(cfg.output) && (config.output = config.output);
     isNotUndefined(cfg.verbose) && (config.verbose = config.verbose);
     isNotUndefined(cfg.watch) && (config.watch = config.watch);
+    isNotUndefined(cfg.target) && (config.target = config.target);
   } else {
     debugLog('no config file: %s', configFile);
   }
