@@ -131,7 +131,7 @@ export default class Rx {
       );
     }
 
-    return (newData: Object) => {
+    return (newData: Object, ctx: Object) => {
       if (this.dev) {
         console.groupCollapsed(
           `=================el#${name}=====================`
@@ -154,7 +154,7 @@ export default class Rx {
           console.log(`${name}#changed:🔥`);
           console.groupEnd();
         }
-        handler(...cache);
+        handler.apply(ctx, [...cache, ctx]);
       } else {
         if (this.dev) {
           console.groupEnd();
