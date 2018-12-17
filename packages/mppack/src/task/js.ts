@@ -21,8 +21,9 @@ export const javascript = () => {
           [
             '@babel/env',
             {
+              modules: false,
               targets: {
-                esmodules: true
+                browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
               }
             }
           ],
