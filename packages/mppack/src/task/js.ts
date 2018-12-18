@@ -29,7 +29,7 @@ export const javascript = () => {
           ],
           '@babel/preset-typescript'
         ],
-        plugins: ['mpapp-set-data']
+        plugins: ['mpapp-set-data', '@babel/plugin-transform-runtime']
       })
     )
     .on('error', (err: Error) =>
