@@ -1,0 +1,97 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.todo {
+  margin: 20rpx;
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  height: 70rpx;
+}
+
+.new-todo {
+  border: none;
+  font-style: italic;
+  width: 100%;
+}
+
+.new-todo-save {
+  font-size: 28rpx;
+}
+
+.todo-list {
+  margin: 20rpx;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+.todo-item {
+  display: flex;
+  height: 80rpx;
+  /* position: relative; */
+}
+
+.todo-check {
+  margin-top: -6rpx;
+}
+
+.todo-del {
+  margin-top: -6rpx;
+  position: absolute;
+  right: 20rpx;
+}
+
+.todo-content {
+  margin-left: 20rpx;
+}
+
+.todo-completed {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+
+.todo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-item {
+  margin-left: 10rpx;
+  padding: 6rpx 14rpx;
+}
+
+.filter-active {
+  border: 1px solid;
+  border-color: rgba(175, 47, 47, 0.2);
+}
+
+.clear-empty {
+  width: 120rpx;
+  height: 24rpx;
+}

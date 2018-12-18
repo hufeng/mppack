@@ -1,0 +1,36 @@
+<scroll-view class="container" scroll-y="true">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="todo">
+    <input class="new-todo" placeholder="添加待办列表" value="{{text}}" bindinput="bindTodoInput" />
+    <button type="primary" class="new-todo-save" bindtap="saveTodo">→</button>
+  </view>
+  <view class="todo-list">
+    <view class="todo-item" wx:for="{{rx.filterTodos}}" wx:key="id">
+      <icon bindtap="toggleTodo" class="todo-check" data-index="{{index}}" data-status="{{item.completed}}" type="{{ item.completed ? 'success_circle' : 'circle'}}" />
+      <view class="{{ item.completed ? 'todo-content todo-completed' : 'todo-content'}}">
+        <text>{{item.todo}}</text>
+      </view>
+      <icon bindtap="todoDel" class="todo-del" data-todo-id="{{item.id}}" type="cancel" />
+    </view>
+  </view>
+  <view class="todo-footer">
+    <text class="total">{{rx.filterTodosLen}} 个待办</text>
+    <view class="filter">
+      <view class="{{ filter === 'all' ? 'filter-item filter-active' : 'filter-item'}}">
+        <text bindtap="useFilter" data-filter="all">所有</text>
+      </view>
+      <view class="{{ filter === 'active' ? 'filter-item filter-active' : 'filter-item'}}">
+        <text bindtap="useFilter" data-filter="active">待办</text>
+      </view>
+      <view class="{{ filter === 'completed' ? 'filter-item filter-active' : 'filter-item'}}">
+        <text bindtap="useFilter" data-filter="completed">已完成</text>
+      </view>
+    </view>
+    <view wx:if="{{ rx.showClearBtn }}" class="clear">
+      <text bindtap="clearCompleted">清除完成项</text>
+    </view>
+  </view>
+</scroll-view>

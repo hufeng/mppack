@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "npx mppack -w -v -t wxapp",
+    "build": "npx mppack -v -t wxapp"
+  },
+  "dependencies": {
+    "bmue": "^0.0.1-alpha3",
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "devDependencies": {
+    "mppack": "^0.0.1-alpha4"
+  }
+}
