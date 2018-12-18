@@ -29,7 +29,6 @@ export const filterTodosLen = QL('filterTodosLenQL', [
 export const showClearBtn = QL('showClearBtnQL', [
   'todos',
   todos => {
-    console.log(todos);
     return todos.filter(todo => todo.completed).length > 0;
   }
 ]);

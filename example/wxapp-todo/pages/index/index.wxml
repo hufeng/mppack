@@ -13,11 +13,11 @@
       <view class="{{ item.completed ? 'todo-content todo-completed' : 'todo-content'}}">
         <text>{{item.todo}}</text>
       </view>
-      <icon bindtap="todoDel" class="todo-del" data-todo-id="{{item.id}}" type="cancel" />
+      <icon bindtap="todoDel" class="todo-del" data-index="{{index}}" type="cancel" />
     </view>
   </view>
   <view class="todo-footer">
-    <text class="total">{{rx.filterTodosLen}} 个待办</text>
+    <text class="total">{{rx.filterTodosLen}} 个任务</text>
     <view class="filter">
       <view class="{{ filter === 'all' ? 'filter-item filter-active' : 'filter-item'}}">
         <text bindtap="useFilter" data-filter="all">所有</text>

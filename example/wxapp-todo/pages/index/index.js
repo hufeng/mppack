@@ -44,25 +44,21 @@ Mue({
   },
 
   useFilter(e) {
-    const { filter } = e.currentTarget.dataset;
     this.setData({
-      filter
+      filter: e.currentTarget.dataset.filter
     });
   },
 
   clearCompleted() {
-    let { todos } = this.data;
     this.setData({
-      todos: todos.filter(x => !x.completed)
+      todos: this.data.todos.filter(x => !x.completed)
     });
   },
 
   todoDel(e) {
-    const { todoId } = e.currentTarget.dataset;
-    let { todos } = this.data;
-    todos = todos.filter(todo => Number(todoId) !== todo.id);
+    const { index } = e.currentTarget.dataset;
     this.setData({
-      todos
+      todos: this.data.todos.filter((_, i) => i != index)
     });
   },
 
