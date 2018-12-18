@@ -20,6 +20,7 @@ export default function Mue(page: mpapp.IPageProps) {
     mixins = [],
     getter = {},
     effect = [],
+    action = {},
     onLoad,
     onReady,
     onShow,
@@ -97,11 +98,6 @@ export default function Mue(page: mpapp.IPageProps) {
   reducer.onReachBottom.push(onReachBottom);
   reducer.onShareAppMessage.push(onShareAppMessage);
 
-  pageObj = {
-    ...pageObj,
-    ...others
-  };
-
   //reduce data
   const mergeData =
     reducer.data
@@ -144,7 +140,9 @@ export default function Mue(page: mpapp.IPageProps) {
 
   pageObj = {
     ...rx,
-    ...pageObj
+    ...pageObj,
+    ...action,
+    ...others
   };
 
   pageObj['setState'] = function(arg: Object, cb: Function) {
@@ -154,6 +152,10 @@ export default function Mue(page: mpapp.IPageProps) {
     }
     //@ts-ignore
     this.setData(arg, () => {
+      if (dev) {
+        // @ts-ignore
+        console.log(this.data);
+      }
       //computed ql
       // @ts-ignore
       const rx = this.computeQL(clonedeep(this.data));

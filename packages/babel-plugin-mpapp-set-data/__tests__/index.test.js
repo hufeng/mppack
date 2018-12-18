@@ -38,6 +38,13 @@ Mue({
     this.setData({});
     this.$spliceData({})
   }
+});
+
+Action({
+  sayHello() {
+    this.setData({});
+    this.$spliceData({})
+  }
 })
 `;
 

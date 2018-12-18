@@ -38,5 +38,12 @@ Mue({
     this.setState({});
     this.spliceState({});
   }
+});
+
+Action({
+  sayHello() {
+    this.setState({});
+    this.spliceState({});
+  }
 });"
 `;

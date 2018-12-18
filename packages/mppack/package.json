@@ -1,6 +1,6 @@
 {
   "name": "mppack",
-  "version": "0.0.1-alpha6",
+  "version": "0.0.1-alpha7",
   "description": "mpapp's webpack",
   "main": "./lib/index.js",
   "keywords": [
@@ -12,7 +12,7 @@
   "dependencies": {
     "@babel/core": "^7.2.0",
     "@babel/preset-typescript": "^7.1.0",
-    "babel-plugin-mpapp-set-data": "^0.0.1-alpha2",
+    "babel-plugin-mpapp-set-data": "^0.0.1-alpha3",
     "commander": "^2.19.0",
     "cowsay": "^1.3.1",
     "debug": "^4.1.0",
