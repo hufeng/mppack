@@ -17,19 +17,19 @@ export const javascript = () => {
     .pipe(log({ prefix: 'js' }))
     .pipe(
       babel({
-        presets: [
-          [
-            '@babel/env',
-            {
-              modules: false,
-              targets: {
-                browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
-              }
-            }
-          ],
-          '@babel/preset-typescript'
-        ],
-        plugins: ['mpapp-set-data', '@babel/plugin-transform-runtime']
+        // presets: [
+        //   [
+        //     '@babel/env',
+        //     {
+        //       modules: false,
+        //       targets: {
+        //         browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
+        //       }
+        //     }
+        //   ],
+        //   '@babel/preset-typescript'
+        // ],
+        plugins: ['mpapp-set-data']
       })
     )
     .on('error', (err: Error) =>

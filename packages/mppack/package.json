@@ -1,6 +1,6 @@
 {
   "name": "mppack",
-  "version": "0.0.1-alpha4",
+  "version": "0.0.1-alpha6",
   "description": "mpapp's webpack",
   "main": "./lib/index.js",
   "keywords": [
@@ -11,8 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
     "@babel/preset-typescript": "^7.1.0",
     "babel-plugin-mpapp-set-data": "^0.0.1-alpha2",
     "commander": "^2.19.0",

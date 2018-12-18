@@ -1,6 +1,6 @@
+import clonedeep from 'lodash.clonedeep';
 import Rx from './rx';
 import { mpapp } from './types';
-
 /**
  * A simple factory function, let mini app development more compose and reactive
  * page object includes:
@@ -147,7 +147,7 @@ export default function Mue(page: mpapp.IPageProps) {
     ...pageObj
   };
 
-  pageObj['setState'] = function(arg) {
+  pageObj['setState'] = function(arg: Object, cb: Function) {
     if (dev) {
       console.groupCollapsed('================setState===================');
       console.log('param:', arg);
@@ -156,7 +156,7 @@ export default function Mue(page: mpapp.IPageProps) {
     this.setData(arg, () => {
       //computed ql
       // @ts-ignore
-      const rx = this.computeQL(this.data);
+      const rx = this.computeQL(clonedeep(this.data));
 
       if (dev) {
         console.log('rx:', rx);
@@ -175,7 +175,7 @@ export default function Mue(page: mpapp.IPageProps) {
       //@ts-ignore
       this.effect.forEach(effect => {
         //@ts-ignore
-        effect.apply(this, [this.data, this]);
+        effect.apply(this, [clonedeep(this.data), this]);
       });
 
       if (dev) {
