@@ -36,15 +36,15 @@ export const typescript = () => {
     .pipe(
       babel({
         presets: [
-          [
-            '@babel/env',
-            {
-              modules: false,
-              targets: {
-                browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
-              }
-            }
-          ],
+          // [
+          //   '@babel/env',
+          //   {
+          //     modules: false,
+          //     targets: {
+          //       browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
+          //     }
+          //   }
+          // ],
           '@babel/preset-typescript'
         ],
         plugins: ['mpapp-set-data']
