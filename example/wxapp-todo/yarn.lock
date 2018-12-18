@@ -503,10 +503,10 @@ aws4@^1.8.0:
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha1-8OAD2cqef1nHpQiUXXsu+aBKVC8=
 
-babel-plugin-mpapp-set-data@^0.0.1-alpha2:
-  version "0.0.1-alpha2"
-  resolved "http://registry.npm.taobao.org/babel-plugin-mpapp-set-data/download/babel-plugin-mpapp-set-data-0.0.1-alpha2.tgz#5a81fd13ac2ad896fc15210abb304a8811492f9f"
-  integrity sha1-WoH9E6wq2Jb8FSEKuzBKiBFJL58=
+babel-plugin-mpapp-set-data@^0.0.1-alpha3:
+  version "0.0.1-alpha3"
+  resolved "http://registry.npm.taobao.org/babel-plugin-mpapp-set-data/download/babel-plugin-mpapp-set-data-0.0.1-alpha3.tgz#876bfe171ba45ee5c59df738cc25251fc1f75c68"
+  integrity sha1-h2v+FxukXuXFnfc4zCUlH8H3XGg=
 
 bach@^1.0.0:
   version "1.2.0"
@@ -614,10 +614,10 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-bmue@^0.0.1-alpha4:
-  version "0.0.1-alpha4"
-  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha4.tgz#7a24af40f9e02f2a99600cda37658069653a0439"
-  integrity sha1-eiSvQPngLyqZYAzaN2WAaWU6BDk=
+bmue@^0.0.1-alpha5:
+  version "0.0.1-alpha5"
+  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha5.tgz#09c7805ed736dd0868d9b5777c2dd8e83cca6702"
+  integrity sha1-CceAXtc23Qho2bV3fC3Y6DzKZwI=
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.isequal "^4.5.0"
@@ -3209,14 +3209,14 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mppack@^0.0.1-alpha5:
-  version "0.0.1-alpha6"
-  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-alpha6.tgz#a762c98780107e564a93c8cb82c5738e312bcf1f"
-  integrity sha1-p2LJh4AQflZKk8jLgsVzjjErzx8=
+mppack@^0.0.1-alpha7:
+  version "0.0.1-alpha7"
+  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-alpha7.tgz#493f54e747c833a1a6bb869a2b1c6a3bbb6a5599"
+  integrity sha1-ST9U50fIM6Gmu4aaKxxqO7tqVZk=
   dependencies:
     "@babel/core" "^7.2.0"
     "@babel/preset-typescript" "^7.1.0"
-    babel-plugin-mpapp-set-data "^0.0.1-alpha2"
+    babel-plugin-mpapp-set-data "^0.0.1-alpha3"
     commander "^2.19.0"
     cowsay "^1.3.1"
     debug "^4.1.0"

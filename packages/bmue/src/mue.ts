@@ -152,6 +152,10 @@ export default function Mue(page: mpapp.IPageProps) {
     }
     //@ts-ignore
     this.setData(arg, () => {
+      if (dev) {
+        // @ts-ignore
+        console.log(this.data);
+      }
       //computed ql
       // @ts-ignore
       const rx = this.computeQL(clonedeep(this.data));
