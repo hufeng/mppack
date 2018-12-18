@@ -54,6 +54,7 @@ Object {
   "processEL": [Function],
   "refreshFetchData": [Function],
   "sayHello": [Function],
+  "sayWorld": [Function],
   "setState": [Function],
   "spliceState": [Function],
 }

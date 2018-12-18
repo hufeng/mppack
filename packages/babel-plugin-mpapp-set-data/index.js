@@ -8,24 +8,23 @@ module.exports = function(babel) {
           node: { callee }
         } = path;
         const fnName = callee.name;
-        if (fnName !== 'Mixin' && fnName !== 'Mue') {
-          return;
-        }
-        // 遍历所有的子元素
-        path.traverse({
-          CallExpression(path) {
-            const {
-              node: { callee }
-            } = path;
-            if (t.isMemberExpression(callee)) {
-              if (callee.property.name === 'setData') {
-                callee.property.name = 'setState';
-              } else if (callee.property.name === '$spliceData') {
-                callee.property.name = 'spliceState';
+        if (fnName === 'Mixin' || fnName === 'Mue' || fnName === 'Action') {
+          // 遍历所有的子元素
+          path.traverse({
+            CallExpression(path) {
+              const {
+                node: { callee }
+              } = path;
+              if (t.isMemberExpression(callee)) {
+                if (callee.property.name === 'setData') {
+                  callee.property.name = 'setState';
+                } else if (callee.property.name === '$spliceData') {
+                  callee.property.name = 'spliceState';
+                }
               }
             }
-          }
-        });
+          });
+        }
       }
     }
   };
