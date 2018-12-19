@@ -13,4 +13,10 @@ it('test getPathVal', () => {
 
   const tabIndex = getPathVal(data, 'tabIndex');
   expect(tabIndex).toEqual(0);
+
+  const nullVal = getPathVal(data, 'tabIndex1');
+  expect(nullVal).toEqual(undefined);
+
+  const nullValArr = getPathVal(data, ['list', 0, 'user1', 'email']);
+  expect(nullValArr).toEqual(undefined);
 });

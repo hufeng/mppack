@@ -16,6 +16,22 @@ export interface IRxParams {
   effect?: Array<ELang>;
 }
 
+export interface IMueReducer {
+  data: Array<Object>;
+  onLoad: Array<Function>;
+  onReady: Array<Function>;
+  onShow: Array<Function>;
+  onHide: Array<Function>;
+  onUnload: Array<Function>;
+  onPullDownRefresh: Array<Function>;
+  onReachBottom: Array<Function>;
+  onShareAppMessage: Array<Function>;
+  onPageScroll: Array<Function>;
+  onTitleClick: Array<Function>;
+  onResize: Array<Function>;
+  onTabItemTap: Array<Function>;
+}
+
 export namespace mpapp {
   export interface IReferrerInfo {
     /**
@@ -246,6 +262,4 @@ declare global {
   function Component<P, S>(
     prop: mpapp.IEAppComponentProps<P, S> | mpapp.IWxAppComponentProps
   ): void;
-  const dd: any;
-  const wx: any;
 }

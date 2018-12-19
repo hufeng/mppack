@@ -70,6 +70,7 @@ export default class Rx {
 
   bigQuery(data: Object, ql: QueryLang) {
     const { id, name, handler, deps } = ql.parse();
+    const len = deps.length;
 
     if (this.dev) {
       console.groupCollapsed(
@@ -97,19 +98,16 @@ export default class Rx {
     });
 
     if (isChanged) {
-      const len = deps.length;
       const pathVals = this._cacheQL[id].slice(0, len);
       const result = handler(...pathVals);
-      this._cacheQL[id][len + 1] = result;
-
+      this._cacheQL[id][len] = result;
       if (this.dev) {
         console.log('update:🔥', result);
         console.groupEnd();
       }
       return result;
     } else {
-      const len = deps.length;
-      const result = this._cacheQL[id][len + 1];
+      const result = this._cacheQL[id][len];
 
       if (this.dev) {
         console.log('cache:😆', result);

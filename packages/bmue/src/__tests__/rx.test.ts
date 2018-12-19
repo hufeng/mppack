@@ -48,13 +48,13 @@ test('test bigQuery', () => {
     })
   ]);
   const nestResult = mue.bigQuery(mue.data, nestQL);
+  expect(mockLog.logs).toMatchSnapshot();
   expect(nestResult).toEqual({
     id: 1,
     name: 'mue',
     mott: 'easy miniapp',
     tabIndex: 0
   });
-  expect(mockLog.logs).toMatchSnapshot();
 });
 
 it('test parseRL', () => {
@@ -86,6 +86,6 @@ it('test parseRL', () => {
     list: [{ id: 1, user: { id: 1, name: 'mue', mott: 'easy miniapp rl' } }],
     tabIndex: 1
   };
-  helloRLHandle(mue.data);
+  helloRLHandle(mue.data, mue);
   expect(mockLog.logs).toMatchSnapshot();
 });
