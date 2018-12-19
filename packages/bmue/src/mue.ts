@@ -1,6 +1,8 @@
 import clonedeep from 'lodash.clonedeep';
 import Rx from './rx';
 import { mpapp } from './types';
+import { reduceDataLifeCycleMethod } from './util';
+
 /**
  * A simple factory function, let mini app development more compose and reactive
  * page object includes:
@@ -10,36 +12,11 @@ import { mpapp } from './types';
  * 4. method => event handler
  * 5. getter => ql(reactive data)
  * 6. effect => rl (reactive side effect)
+ * 7. action => response page
  */
 
 export default function Mue(page: mpapp.IPageProps) {
-  //destruct page
-  const {
-    dev = false,
-    data = {},
-    mixins = [],
-    getter = {},
-    effect = [],
-    action = {},
-    onLoad,
-    onReady,
-    onShow,
-    onHide,
-    onUnload,
-    onPullDownRefresh,
-    onReachBottom,
-    onShareAppMessage,
-    ...others
-  } = page;
-
-  if (dev) {
-    console.log('=================🚀bmue bootstrap🚀=================');
-  }
-
-  /**
-   * collect all mixin page data, and lifycycle method
-   * in order to merge all
-   */
+  //collection data and all lifecycle method
   const reducer = {
     data: [],
     onLoad: [],
@@ -49,55 +26,55 @@ export default function Mue(page: mpapp.IPageProps) {
     onUnload: [],
     onPullDownRefresh: [],
     onReachBottom: [],
-    onShareAppMessage: []
+    onShareAppMessage: [],
+    onPageScroll: [],
+    onTitleClick: [],
+    onResize: [],
+    onTabItemTap: []
   };
+
+  const { dev = false, mixins = [], getter, effect, action, ...rest } = page;
+
+  if (dev) {
+    console.log('=================🚀bmue bootstrap🚀=================');
+  }
 
   //merge reactive object
   let pageObj = {};
-
   //reduce mixin
   for (let mixin of mixins) {
-    const {
-      data = {},
-      onLoad,
-      onReady,
-      onShow,
-      onHide,
-      onUnload,
-      onPullDownRefresh,
-      onReachBottom,
-      onShareAppMessage,
-      ...rest
-    } = mixin;
-
-    //collect page
-    reducer.data.push(data);
-    reducer.onLoad.push(onLoad);
-    reducer.onReady.push(onReady);
-    reducer.onShow.push(onShow);
-    reducer.onHide.push(onHide);
-    reducer.onUnload.push(onUnload);
-    reducer.onPullDownRefresh.push(onPullDownRefresh);
-    reducer.onReachBottom.push(onReachBottom);
-    reducer.onShareAppMessage.push(onShareAppMessage);
-
+    const mixinRest = reduceDataLifeCycleMethod(mixin, reducer);
     pageObj = {
       ...pageObj,
-      ...rest
+      ...mixinRest
     };
   }
-
-  //reduce page object
-  reducer.data.push(data);
-  reducer.onLoad.push(onLoad);
-  reducer.onReady.push(onReady);
-  reducer.onShow.push(onShow);
-  reducer.onHide.push(onHide);
-  reducer.onUnload.push(onUnload);
-  reducer.onPullDownRefresh.push(onPullDownRefresh);
-  reducer.onReachBottom.push(onReachBottom);
-  reducer.onShareAppMessage.push(onShareAppMessage);
-
+  //reduce action
+  const actionRest = reduceDataLifeCycleMethod(action, reducer);
+  //reduce page
+  const pageRest = reduceDataLifeCycleMethod(rest, reducer);
+  //reduce lifecycle
+  [
+    'onLoad',
+    'onReady',
+    'onShow',
+    'onHide',
+    'onUnload',
+    'onPullDownRefresh',
+    'onReachBottom',
+    'onShareAppMessage',
+    'onPageScroll',
+    'onTitleClick',
+    'onResize',
+    'onTabItemTap'
+  ].forEach(lifecycle => {
+    const list = reducer[lifecycle].filter((method: Function) => method);
+    if (list.length > 0) {
+      pageObj[lifecycle] = function(arg: any) {
+        list.forEach((v: Function) => v.call(this, arg));
+      };
+    }
+  });
   //reduce data
   const mergeData =
     reducer.data
@@ -110,27 +87,6 @@ export default function Mue(page: mpapp.IPageProps) {
         { rx: {} }
       ) || {};
 
-  //reduce lifecycle
-  [
-    'onLoad',
-    'onReady',
-    'onShow',
-    'onHide',
-    'onUnload',
-    'onPullDownRefresh',
-    'onReachBottom',
-    'onShareAppMessage'
-  ].forEach(lifecycle => {
-    const list = (reducer[lifecycle] as Array<Function>).filter(
-      method => method
-    );
-    if (list.length > 0) {
-      pageObj[lifecycle] = function(arg) {
-        list.forEach(v => v.call(this, arg));
-      };
-    }
-  });
-
   const rx = new Rx({
     dev,
     data: mergeData,
@@ -141,8 +97,8 @@ export default function Mue(page: mpapp.IPageProps) {
   pageObj = {
     ...rx,
     ...pageObj,
-    ...action,
-    ...others
+    ...actionRest,
+    ...pageRest
   };
 
   pageObj['setState'] = function(arg: Object, cb: Function) {
@@ -156,14 +112,15 @@ export default function Mue(page: mpapp.IPageProps) {
         // @ts-ignore
         console.log(this.data);
       }
+
+      //@ts-ignore
+      const data = clonedeep(this.data);
       //computed ql
       // @ts-ignore
-      const rx = this.computeQL(clonedeep(this.data));
-
+      const rx = this.computeQL(data);
       if (dev) {
         console.log('rx:', rx);
       }
-
       //@ts-ignore
       this.setData({
         rx: {
@@ -175,9 +132,9 @@ export default function Mue(page: mpapp.IPageProps) {
 
       //compute effect
       //@ts-ignore
-      this.effect.forEach(effect => {
+      this.effect.forEach((effect: Function) => {
         //@ts-ignore
-        effect.apply(this, [clonedeep(this.data), this]);
+        effect.apply(this, [data, this]);
       });
 
       if (dev) {
@@ -186,16 +143,18 @@ export default function Mue(page: mpapp.IPageProps) {
     });
   };
 
-  pageObj['spliceState'] = function(arg) {
+  pageObj['spliceState'] = function(arg: Object) {
     if (dev) {
       console.groupCollapsed('================spliceState===================');
       console.log('param:', arg);
     }
     //@ts-ignore
     this.$spliceData(arg, () => {
+      //@ts-ignore
+      const data = clonedeep(this.data);
       //computed ql
       // @ts-ignore
-      const rx = this.computeQL(this.data);
+      const rx = this.computeQL(data);
 
       if (dev) {
         console.log('rx:', rx);
@@ -212,10 +171,10 @@ export default function Mue(page: mpapp.IPageProps) {
 
       //compute effect
       //@ts-ignore
-      this.effect.forEach(effect => {
+      this.effect.forEach((effect: Function) => {
         //@ts-ignore
         // effect(this.data);
-        effect.apply(this, [this.data]);
+        effect.apply(this, [data, this]);
       });
 
       if (dev) {

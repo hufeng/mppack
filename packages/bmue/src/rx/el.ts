@@ -10,9 +10,9 @@ export class ELang {
   lang: TRxLang;
 
   parse() {
-    const len = this.lang.length;
-    const handler = this.lang[len - 1] as TRxLangHandler;
-    const deps = this.lang.slice(0, len - 1) as Array<TPath>;
+    const lang = this.lang.slice();
+    const handler = lang.pop() as TRxLangHandler;
+    const deps = lang as Array<TPath>;
     return {
       name: this.name,
       deps,

@@ -14,9 +14,9 @@ export class QueryLang {
   lang: TQueryLang;
 
   parse() {
-    const len = this.lang.length;
-    const handler = this.lang[len - 1] as TQueryLangHandler;
-    const deps = this.lang.slice(0, len - 1) as Array<TPath>;
+    const lang = this.lang.slice();
+    const handler = lang.pop() as TQueryLangHandler;
+    const deps = lang as Array<TPath>;
     return {
       id: this.id,
       name: this.name,
