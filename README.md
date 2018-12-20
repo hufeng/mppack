@@ -6,13 +6,15 @@
 
 各种(钉钉，微信，支付宝)小程序以燎原之势席卷而来之后，对于小程序的开发需求就提上了日程
 
-小程序本身提供的开发方式非常简约，我们可以用更  现代前端的开发方式来构建我们的应用
+小程序本身提供的开发方式非常简约，我们可以用更 现代前端的开发方式来构建我们的应用
 
-1. <del>不支持 node_modules</del> 已经原生支持了
+1. <del>不支持 node_modules</del> 已经原生支持了, 不用麻烦了 点赞
 2. <del>不支持模块的绝对路径（导致了不支持 node_modules）</del>
 3. 不完整的支持 es6 或者 更想用 typescript(效率工具)
 4. Callback 回调方式如果逻辑重太难维护代码，更期待 promise/async/await 的解决方案
 5. <del>组件的支持不够完整</del>
+6. 样式可以用 css,less,sass,postcss....
+7. 图片可不可以自动优化体积
 
 ## Goal?
 
@@ -20,7 +22,7 @@
 
 1.<del> 自动支持 node_modules</del> 已经支持了
 
-2. 无缝支持 babel（babel-preset-env） / typescript
+2. 无缝支持 babel（babel-preset-env） / typescript /借助 babel 可以做特殊特征优化
 
 3. 支持 async/await (babel-plugin-transform-runtime 并不能正常的在小程序中运行)
 
@@ -48,66 +50,52 @@ mppack
 
 ```text
 quick-start
- ❯ tree -L 3 -I node_modules
+~/OSS/mppack/example/wxapp-todo next*
+❯ tree -L 3 -I node_modules
 .
+├── app.css
 ├── app.js
 ├── app.json
-├── app.wxss
-├── build // compile之后的结果
+├── build
 │   ├── app.js
 │   ├── app.json
 │   ├── app.wxss
-│   ├── hello.jpg
+│   ├── package-lock.json
 │   ├── pages
-│   │   ├── index
-│   │   └── logs
-│   ├── test.js
-│   ├── utils
-│   │   ├── index.js
-│   │   └── util.js
-│   └── vendor
-│       ├── immutable
-│       └── regenerator-runtime
-├── hello.jpg
+│   │   └── index
+│   └── utils
+│       └── util.js
+├── package-lock.json
 ├── package.json
 ├── pages
-│   ├── index
-│   │   ├── index.js
-│   │   ├── index.wxml
-│   │   ├── index.wxss
-│   │   └── test.js
-│   └── logs
-│       ├── logs.js
-│       ├── logs.json
-│       ├── logs.wxml
-│       └── logs.wxss
-├── test.ts
-├── tsconfig.json
+│   └── index
+│       ├── domain
+│       ├── index.css
+│       ├── index.js
+│       └── index.wxml
 ├── utils
-│   ├── index.js
 │   └── util.js
 └── yarn.lock
 
-12 directories, 25 files
+8 directories, 15 files
 
 ```
 
 ## help
 
 ```text
-~/OSS/mppack/example/eapp-hello next*
-❯ mppack --help
+❯ npx mppack --help
 Usage: mppack [-o path]
 
 Options:
-  -V, --version              output the version number
-  -o, --output [path]        Which bundle output
-  -v, --verbose              show verbose log
-  -w, --watch                watch mode
-  -c, --config [file]        specify a config file
-  -t, --target [wxapp|eapp]  specify a platform target
-  -h, --help                 output usage information
-
+  -V, --version                  output the version number
+  -o, --output [path]            Which bundle output
+  -v, --verbose                  show verbose log
+  -w, --watch                    watch mode
+  -c, --config [file]            specify a config file
+  -t, --target [wxapp|eapp]      specify a platform target
+  -m, --module [offline|online]  offline copy node_modules, online npm install
+  -h, --help                     output usage information
 
 ```
 
@@ -387,6 +375,16 @@ Mue({
 });
 ```
 
+### action = 响应 Page 事件
+
+```javascript
+export default Action({
+  onLoad() {},
+
+  onButtonTap() {}
+});
+```
+
 ### Mue = Page + Reactive
 
 Mue 对象根据传入的参数进行数据的处理然后调用 Page
@@ -413,6 +411,9 @@ Mue({
   //当前页面的state,
   //Mue会自动合入mixin中的所有的data，已经QL计算的结果
   data: {},
+
+  //响应页面事件
+  Action: Action({})
 
   //声明周期函数
   //Mue会自动把mixin中的声明周期函数自动合并
