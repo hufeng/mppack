@@ -777,7 +777,7 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-chalk@^1.0.0:
+chalk@^1.0.0, chalk@^1.1.3:
   version "1.1.3"
   resolved "http://registry.npm.taobao.org/chalk/download/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   integrity sha1-qBFcVeSnAv5NFQq9OHKCKn4J/Jg=
@@ -2156,6 +2156,16 @@ gulp-less@^4.0.1:
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
 
+gulp-plumber@^1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/gulp-plumber/download/gulp-plumber-1.2.1.tgz#d38700755a300b9d372318e4ffb5ff7ced0b2c84"
+  integrity sha1-04cAdVowC503Ixjk/7X/fO0LLIQ=
+  dependencies:
+    chalk "^1.1.3"
+    fancy-log "^1.3.2"
+    plugin-error "^0.1.2"
+    through2 "^2.0.3"
+
 gulp-rename@^1.4.0:
   version "1.4.0"
   resolved "http://registry.npm.taobao.org/gulp-rename/download/gulp-rename-1.4.0.tgz#de1c718e7c4095ae861f7296ef4f3248648240bd"
@@ -3214,10 +3224,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mppack@^0.0.1-alpha7:
-  version "0.0.1-alpha7"
-  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-alpha7.tgz#493f54e747c833a1a6bb869a2b1c6a3bbb6a5599"
-  integrity sha1-ST9U50fIM6Gmu4aaKxxqO7tqVZk=
+mppack@^0.0.1-alpha8:
+  version "0.0.1-alpha8"
+  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-alpha8.tgz#c4f29f7d5ab7d86abbb10368dd68398cfb67f660"
+  integrity sha1-xPKffVq32Gq7sQNo3Wg5jPtn9mA=
   dependencies:
     "@babel/core" "^7.2.0"
     "@babel/preset-typescript" "^7.1.0"
@@ -3232,6 +3242,7 @@ mppack@^0.0.1-alpha7:
     gulp-changed "^3.2.0"
     gulp-imagemin "^5.0.3"
     gulp-less "^4.0.1"
+    gulp-plumber "^1.2.1"
     gulp-rename "^1.4.0"
     gulp-typescript "^5.0.0"
     through2 "^3.0.0"
