@@ -8,9 +8,9 @@
     "build": "npx mppack -v -t wxapp"
   },
   "dependencies": {
-    "bmue": "^0.0.1-alpha5"
+    "bmue": "^0.0.1-alpha6"
   },
   "devDependencies": {
-    "mppack": "^0.0.1-alpha7"
+    "mppack": "^0.0.1-alpha8"
   }
 }

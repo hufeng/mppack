@@ -1,6 +1,7 @@
 import debug from 'debug';
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
+import plumber from 'gulp-plumber';
 import config from '../config';
 import { changed } from '../plugin/changed';
 import { log } from '../plugin/log';
@@ -12,6 +13,7 @@ export const image = () => {
 
   return gulp
     .src(image)
+    .pipe(plumber())
     .pipe(changed())
     .pipe(log({ prefix: 'image' }))
     .pipe(imagemin())

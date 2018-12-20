@@ -1,12 +1,13 @@
 import { Mue } from 'bmue';
-import * as el from './el';
-import * as ql from './ql';
-import { fetchData } from './webapi';
+import action from './domain/action';
+import * as el from './domain/el';
+import * as ql from './domain/ql';
 
 Mue({
   dev: true,
   getter: ql,
   effect: el,
+  action,
   data: {
     hello: 'hello mppack',
     list: [
@@ -14,13 +15,5 @@ Mue({
         id: 1
       }
     ]
-  },
-  async onLoad() {
-    const data = await fetchData();
-    //@ts-ignore
-    this.setData({
-      hello: data,
-      'list.0.id': 1
-    });
   }
 });

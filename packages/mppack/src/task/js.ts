@@ -1,7 +1,7 @@
 import debug from 'debug';
-import flog from 'fancy-log';
 import gulp from 'gulp';
 import babel from 'gulp-babel';
+import plumber from 'gulp-plumber';
 import config from '../config';
 import { changed } from '../plugin/changed';
 import { log } from '../plugin/log';
@@ -13,29 +13,13 @@ export const javascript = () => {
 
   return gulp
     .src(javascript)
+    .pipe(plumber())
     .pipe(changed())
     .pipe(log({ prefix: 'js' }))
     .pipe(
       babel({
-        // presets: [
-        //   [
-        //     '@babel/env',
-        //     {
-        //       modules: false,
-        //       targets: {
-        //         browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
-        //       }
-        //     }
-        //   ],
-        //   '@babel/preset-typescript'
-        // ],
         plugins: ['mpapp-set-data']
       })
-    )
-    .on('error', (err: Error) =>
-      flog.error(
-        `Failed during javascript compilation, resulut: ${err.message}`
-      )
     )
     .pipe(gulp.dest(output));
 };

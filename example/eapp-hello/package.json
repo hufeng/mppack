@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "watch": "npx mppack -v -w",
+    "build": "npx mppack -v"
+  },
   "dependencies": {
-    "bmue": "^0.0.1-alpha1"
+    "bmue": "^0.0.1-alpha6"
   },
   "devDependencies": {
-    "mppack": "^0.0.1-alpha2"
+    "mppack": "^0.0.1-alpha8"
   }
 }
