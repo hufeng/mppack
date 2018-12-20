@@ -1,6 +1,6 @@
 import { Mue } from 'bmue';
-import action from './component/action';
-import * as getter from './component/getter';
+import action from './domain/action';
+import * as getter from './domain/getter';
 
 Mue({
   dev: true,

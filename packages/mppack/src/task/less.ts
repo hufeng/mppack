@@ -2,6 +2,7 @@ import debug from 'debug';
 import flog from 'fancy-log';
 import gulp from 'gulp';
 import gless from 'gulp-less';
+import plumber from 'gulp-plumber';
 import rename from 'gulp-rename';
 import config from '../config';
 import { changed } from '../plugin/changed';
@@ -22,6 +23,7 @@ export const less = () => {
   );
   return gulp
     .src(less)
+    .pipe(plumber())
     .pipe(changed())
     .pipe(log({ prefix: 'less', extName: extname }))
     .pipe(gless())

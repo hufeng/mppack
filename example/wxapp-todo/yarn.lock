@@ -614,10 +614,10 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-bmue@^0.0.1-alpha5:
-  version "0.0.1-alpha5"
-  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha5.tgz#09c7805ed736dd0868d9b5777c2dd8e83cca6702"
-  integrity sha1-CceAXtc23Qho2bV3fC3Y6DzKZwI=
+bmue@^0.0.1-alpha6:
+  version "0.0.1-alpha6"
+  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha6.tgz#78b848e2d660b99934d1c9f29cde5740b1f82788"
+  integrity sha1-eLhI4tZguZk00cnynN5XQLH4J4g=
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.isequal "^4.5.0"

@@ -23,6 +23,7 @@
     "gulp-changed": "^3.2.0",
     "gulp-imagemin": "^5.0.3",
     "gulp-less": "^4.0.1",
+    "gulp-plumber": "^1.2.1",
     "gulp-rename": "^1.4.0",
     "gulp-typescript": "^5.0.0",
     "through2": "^3.0.0"
