@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test async/await 1`] = `
+"import _regeneratorRuntime from 'regenerator-runtime';
+
+var _onLoad = _asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var _this = this;
+
+  var data;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          app.getUserInfo(function (userInfo) {
+            _this.setState({
+              userInfo: userInfo
+            });
+          });
+          console.log('onLoading...');
+          _context.next = 4;
+          return webapi.fetchData();
+
+        case 4:
+          data = _context.sent;
+          this.setState({
+            todo: data
+          });
+
+        case 7:
+        case \\"end\\":
+          return _context.stop();
+      }
+    }
+  }, _callee, this);
+}));
+var _onLoad1 = _asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var _this = this;
+
+  var data;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          app.getUserInfo(function (userInfo) {
+            _this.setState({
+              userInfo: userInfo
+            });
+          });
+          console.log('onLoading...');
+          _context.next = 4;
+          return webapi.fetchData();
+
+        case 4:
+          data = _context.sent;
+          this.setState({
+            todo: data
+          });
+
+        case 7:
+        case \\"end\\":
+          return _context.stop();
+      }
+    }
+  }, _callee, this);
+}));"
+`;
+
+exports[`test setData and spliceData 1`] = `
+"
+//test mixin
+const TabMixin = Mixin({
+  data: {
+    tabIndex: 0
+  },
+
+  onHandleTabIndex(tabIndex) {
+    this.setState({
+      tabIndex
+    });
+    this.spliceState({});
+  }
+});
+
+//test plain javascript object
+const pojo = {
+  data: {
+    test: 0
+  },
+
+  sayHello() {
+    this.setData({});
+    this.$spliceData({});
+  }
+};
+
+//test mue object
+Mue({
+  data: {
+    list: []
+  },
+
+  sayHello() {
+    this.setState({});
+    this.spliceState({});
+  }
+});
+
+Action({
+  sayHello() {
+    this.setState({});
+    this.spliceState({});
+  }
+});"
+`;
