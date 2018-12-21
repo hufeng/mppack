@@ -1,8 +1,23 @@
 import { Action } from 'bmue';
 import { getId } from './id';
+import * as webapi from './webapi';
+
 const app = getApp();
 
 export default Action({
+  async onLoad() {
+    app.getUserInfo(userInfo => {
+      this.setData({
+        userInfo: userInfo
+      });
+    });
+
+    const data = await webapi.fetchData();
+    this.setData({
+      todos: data
+    });
+  },
+
   bindTodoInput(e) {
     this.setData({
       text: e.detail.value
@@ -49,14 +64,6 @@ export default Action({
     const { index } = e.currentTarget.dataset;
     this.setData({
       todos: this.data.todos.filter((_, i) => i != index)
-    });
-  },
-
-  onLoad() {
-    app.getUserInfo(userInfo => {
-      this.setData({
-        userInfo: userInfo
-      });
     });
   }
 });

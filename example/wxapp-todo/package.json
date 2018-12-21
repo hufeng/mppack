@@ -8,9 +8,11 @@
     "build": "npx mppack -v -t wxapp"
   },
   "dependencies": {
+    "regenerator-runtime": "^0.13.1",
     "bmue": "^0.0.1-alpha6"
   },
   "devDependencies": {
-    "mppack": "^0.0.1-alpha8"
+    "@babel/preset-env": "^7.2.0",
+    "mppack": "^0.0.1-beta2"
   }
 }

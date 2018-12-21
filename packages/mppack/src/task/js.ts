@@ -18,7 +18,7 @@ export const javascript = () => {
     .pipe(log({ prefix: 'js' }))
     .pipe(
       babel({
-        plugins: ['mpapp-set-data']
+        plugins: ['mpapp-pack']
       })
     )
     .pipe(gulp.dest(output));

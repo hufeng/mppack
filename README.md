@@ -30,6 +30,103 @@
 
 5. 样式支持 css，less 等
 
+## babel typescript async/await
+
+钉钉的小程序对 babel 的支持级别比较好的支持 es2015，实测可以支持到 async/await (es2017)希望不是 bug 😆 对于 npm 的支持也比较到位
+微信小程序虽然支持的 npm 但是仍有一套自己的规则，需要通过微信开发工具 npm build 一次，在 babel7 以后开启@babel/plugin-transform-runtime 之后
+会导入
+
+```javascript
+import _asyncToGenerator from '@babel/runtime/helpers/asyncToGenerator';
+import _defineProperty from '@babel/runtime/helpers/defineProperty';
+import _toConsumableArray from '@babel/runtime/helpers/toConsumableArray';
+import _regeneratorRuntime from '@babel/runtime/regenerator/index';
+```
+
+从模块上的说这样非常好，将 api 或者语音特性模块化，最小化减少打包体积，但是微信小程序目前还不支持@开头的模块名，希望后面可以完美支持。
+怎么配置 babel 让微信小程序支持呢？
+
+首先不通过这样的方式来引入模块，去除@babel/plugin-transform-runtime,
+
+```javascript
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+
+function _toConsumableArray(arr) {
+  return (
+    _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread()
+  );
+}
+
+function _nonIterableSpread() {
+  throw new TypeError('Invalid attempt to spread non-iterable instance');
+}
+
+function _iterableToArray(iter) {
+  if (
+    Symbol.iterator in Object(iter) ||
+    Object.prototype.toString.call(iter) === '[object Arguments]'
+  )
+    return Array.from(iter);
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+    return arr2;
+  }
+}
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+```
+
+然后单独解决 async/await 的问题就好。微信小程序可以使用如下 babel 的配置
+
+```javascript
+//.babelrc
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+        }
+      }
+    ]
+  ]
+}
+```
+
+mppack 自动通过 babel-plugin-mpapp-pack 来解决 async/await 的问题。
+
 ## getting started
 
 install

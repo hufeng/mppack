@@ -19,7 +19,7 @@ export const typescript = () => {
     .pipe(
       babel({
         presets: ['@babel/preset-typescript'],
-        plugins: ['mpapp-set-data']
+        plugins: ['mpapp-pack']
       })
     )
     .pipe(gulp.dest(output));
