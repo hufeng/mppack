@@ -8,12 +8,12 @@
     "build": "npx mppack -v"
   },
   "dependencies": {
-    "bmue": "^0.0.1-alpha6"
+    "bmue": "^0.0.1-alpha8"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/runtime": "^7.2.0",
-    "mppack": "^0.0.1-alpha8"
+    "mppack": "^0.0.1-beta3"
   }
 }

@@ -882,11 +882,6 @@ babel-plugin-jest-hoist@^23.2.0:
   resolved "http://registry.npm.taobao.org/babel-plugin-jest-hoist/download/babel-plugin-jest-hoist-23.2.0.tgz#e61fae05a1ca8801aadee57a6d66b8cefaf44167"
   integrity sha1-5h+uBaHKiAGq3uV6bWa4zvr0QWc=
 
-babel-plugin-mpapp-set-data@^0.0.1-alpha3:
-  version "0.0.1-alpha3"
-  resolved "http://registry.npm.taobao.org/babel-plugin-mpapp-set-data/download/babel-plugin-mpapp-set-data-0.0.1-alpha3.tgz#876bfe171ba45ee5c59df738cc25251fc1f75c68"
-  integrity sha1-h2v+FxukXuXFnfc4zCUlH8H3XGg=
-
 babel-plugin-syntax-object-rest-spread@^6.13.0:
   version "6.13.0"
   resolved "http://registry.npm.taobao.org/babel-plugin-syntax-object-rest-spread/download/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
@@ -4226,11 +4221,6 @@ lodash.flatten@^4.2.0:
   version "4.4.0"
   resolved "http://registry.npm.taobao.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
   integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
-
-lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "http://registry.npm.taobao.org/lodash.isequal/download/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.merge@^4.4.0:
   version "4.6.1"
