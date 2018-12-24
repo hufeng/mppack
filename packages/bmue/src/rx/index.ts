@@ -1,4 +1,4 @@
-import isEqual from 'lodash.isequal';
+import isEqual from 'fast-deep-equal';
 import { IRxParams, TRxLangHandler } from '../types';
 import { getPathVal } from '../util';
 import { ELang } from './el';
