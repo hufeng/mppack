@@ -1028,10 +1028,12 @@ aws4@^1.8.0:
   resolved "http://registry.npm.taobao.org/aws4/download/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha1-8OAD2cqef1nHpQiUXXsu+aBKVC8=
 
-babel-plugin-mpapp-set-data@^0.0.1-alpha3:
-  version "0.0.1-alpha3"
-  resolved "http://registry.npm.taobao.org/babel-plugin-mpapp-set-data/download/babel-plugin-mpapp-set-data-0.0.1-alpha3.tgz#876bfe171ba45ee5c59df738cc25251fc1f75c68"
-  integrity sha1-h2v+FxukXuXFnfc4zCUlH8H3XGg=
+babel-plugin-mpapp-pack@^0.0.1-alpha4:
+  version "0.0.1-alpha4"
+  resolved "http://registry.npm.taobao.org/babel-plugin-mpapp-pack/download/babel-plugin-mpapp-pack-0.0.1-alpha4.tgz#0c25682a9ea0b5290fba349516a44c85bf156352"
+  integrity sha1-DCVoKp6gtSkPujSVFqRMhb8VY1I=
+  dependencies:
+    "@babel/helper-module-imports" "^7.0.0"
 
 bach@^1.0.0:
   version "1.2.0"
@@ -1139,13 +1141,13 @@ bl@^1.0.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
-bmue@^0.0.1-alpha6:
-  version "0.0.1-alpha6"
-  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha6.tgz#78b848e2d660b99934d1c9f29cde5740b1f82788"
-  integrity sha1-eLhI4tZguZk00cnynN5XQLH4J4g=
+bmue@^0.0.1-alpha8:
+  version "0.0.1-alpha8"
+  resolved "http://registry.npm.taobao.org/bmue/download/bmue-0.0.1-alpha8.tgz#c2ebf357aaff554ba02e658cafbd0b305eed2752"
+  integrity sha1-wuvzV6r/VUugLmWMr70LMF7tJ1I=
   dependencies:
+    fast-deep-equal "^2.0.1"
     lodash.clonedeep "^4.5.0"
-    lodash.isequal "^4.5.0"
 
 boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
@@ -3546,11 +3548,6 @@ lodash.flatten@^4.2.0:
   resolved "http://registry.npm.taobao.org/lodash.flatten/download/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
   integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
 
-lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "http://registry.npm.taobao.org/lodash.isequal/download/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
-
 lodash.merge@^4.4.0:
   version "4.6.1"
   resolved "http://registry.npm.taobao.org/lodash.merge/download/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
@@ -3792,14 +3789,14 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mppack@^0.0.1-alpha8:
-  version "0.0.1-alpha8"
-  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-alpha8.tgz#c4f29f7d5ab7d86abbb10368dd68398cfb67f660"
-  integrity sha1-xPKffVq32Gq7sQNo3Wg5jPtn9mA=
+mppack@^0.0.1-beta3:
+  version "0.0.1-beta3"
+  resolved "http://registry.npm.taobao.org/mppack/download/mppack-0.0.1-beta3.tgz#a170c28b8022ec2f6f28f4ea14ce341c55de67dd"
+  integrity sha1-oXDCi4Ai7C9vKPTqFM40HFXeZ90=
   dependencies:
     "@babel/core" "^7.2.0"
     "@babel/preset-typescript" "^7.1.0"
-    babel-plugin-mpapp-set-data "^0.0.1-alpha3"
+    babel-plugin-mpapp-pack "^0.0.1-alpha4"
     commander "^2.19.0"
     cowsay "^1.3.1"
     debug "^4.1.0"
